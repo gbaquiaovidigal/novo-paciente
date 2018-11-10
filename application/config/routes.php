@@ -40,10 +40,10 @@ $route['adm/cadastro-cidade'] = 'Cidade/Register';
 $route['adm/editar-cidade'] = 'Cidade/Editar';
 $route['adm/remover-cidade'] = 'Cidade/Remover';
 
-$route['adm/veiculos'] = 'Igreja/Listar';
-$route['adm/cadastro-igreja'] = 'Igreja/Register';
-$route['adm/editar-igreja'] = 'Igreja/Editar';
-$route['adm/remover-igreja'] = 'Igreja/Remover';
+$route['adm/veiculo'] = 'Veiculo/Listar';
+$route['adm/cadastro-veiculo'] = 'Veiculo/Register';
+$route['adm/editar-veiculo'] = 'Veiculo/Editar';
+$route['adm/remover-veiculo'] = 'Veiculo/Remover';
 
 $route['adm/presbiteros'] = 'Presbitero/Listar';
 $route['adm/cadastro-presbitero'] = 'Presbitero/Register';
@@ -55,12 +55,12 @@ $route['adm/lista-editar-servicos'] = 'ListaCulto/Editar';
 $route['adm/lista-remover-servicos'] = 'ListaCulto/Remover';
 
 #rotas api
-$route['adm/lc/buscar-igreja'] = 'Api/ListarIgreja';
+$route['adm/lc/buscar-veiculo'] = 'Api/ListarVeiculo';
 $route['adm/lc/buscar-cidade'] = 'Api/ListarCidade';
 $route['adm/lc/buscar-anciao'] = 'Api/ListarAnciao';
 $route['adm/lc/buscar-encarregado'] = 'Api/ListarEncarregado';
 $route['adm/lc/inserir-presbitero'] = 'Api/CadastroPresbitero';
-$route['adm/lc/inserir-igreja'] = 'Api/CadastroIgreja';
+$route['adm/lc/inserir-veiculo'] = 'Api/CadastroVeiculo';
 $route['adm/lc/inserir-cidade'] = 'Api/CadastroCidade';
 $route['adm/lc/inserir-arquivo'] = 'Api/InserirPDF';
 

@@ -5,7 +5,7 @@
 				<div class="col-lg-12">
 					<div class="row">
 						<div class="text-center">
-							<h2 class="text-uppercase">Nova Igreja</h2>
+							<h2 class="text-uppercase">Novo Veículo</h2>
 						</div>
 					</div>
 				</div>
@@ -23,7 +23,7 @@
                            	<div class="alert alert-success" role="alert"><?=$success?></div>
                         <?php endif; ?>
                           	<hr>
-							<form method="POST" action="<?=base_url('adm/cadastro-igreja')?>">
+							<form method="POST" action="<?=base_url('adm/cadastro-veiculo')?>">
 								<!--Select cidade-->
 								<label for="cidade"><h4><strong>Cidade</strong></h4></label>
 								<select class="form-control selectpicker" data-size="3" id="cidade" name="cidade" data-style="bg-primary" data-live-search="true" title="Selecione a Cidade" required="">
@@ -36,10 +36,10 @@
 								
 								<!-- Data da Lista-->
 								
-								<label for="Igreja"><h4><strong>Nome da igreja</strong></h4></label>
-								<input type="text" class="form-control" name="igreja" id="igreja" required="" value="<?=$dataRegister['igreja']?>" placeholder="Insira o nome da Igreja"> 
+								<label for="Veiculo"><h4><strong>Nome do veiculo</strong></h4></label>
+								<input type="text" class="form-control" name="veiculo" id="veiculo" required="" value="<?=$dataRegister['veiculo']?>" placeholder="Insira o nome da Igreja"> 
 								</br>
-								<a href="<?=base_url('adm/igrejas');?>" class="btn btn-lg btn-primary">Cancelar</a>
+								<a href="<?=base_url('adm/veiculos');?>" class="btn btn-lg btn-primary">Cancelar</a>
 								<button class="btn btn-lg btn-primary">Inserir</button>
 							</form>
 						</div>

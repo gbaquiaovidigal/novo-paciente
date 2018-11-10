@@ -19,7 +19,13 @@
     html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}a{text-decoration: none;}
 
     body {
-        background-color:  #a81f2f;
+        /* background-color:  #a81f2f; */
+        
+        background-image: url("assets/img/mountain2.jpg");
+        background-size: cover;
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+        
     }
 
     @media screen and (max-width: 767px) {

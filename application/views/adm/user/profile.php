@@ -11,9 +11,21 @@
 
 <style>
 html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}a{text-decoration: none;}
+
+  body {
+        /* background-color:  #a81f2f; */
+        
+        background-image: url("assets/img/mountain2.jpg");
+        background-size: cover;
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+        
+    }
+
 </style>
 
-<body class="" style="background-color: #a81f2f; color:#fff !important">
+<body class="" >
+<!-- style="background-color: #a81f2f; color:#fff !important"> -->
 
 <!-- Navbar 
 Cores: #a81f2f #560d16 #72141f--> 
@@ -96,7 +108,7 @@ Cores: #a81f2f #560d16 #72141f-->
                   <a class="w3-bar" href="<?php echo base_url('adm/cadastro-pre-lista')?>">
                     <li class="w3-cell-row w3-padding-12 w3-border-bottom ">
                       <div class="w3-cell w3-cell-middle">
-                        Encaminhar Solicitação
+                        Nova Solicitação
                       </div>
                       <div class="w3-cell w3-cell-middle w3-margin-right w3-right" >
                         <i class="fa fa-chevron-right"></i>
@@ -113,7 +125,7 @@ Cores: #a81f2f #560d16 #72141f-->
                       </div>
                     </li>
                   </a>
-                  <a class="w3-bar" href="<?php echo base_url('adm/igrejas')?>">
+                  <a class="w3-bar" href="<?php echo base_url('adm/veiculo')?>">
                     <li class="w3-cell-row w3-padding-12 w3-border-bottom ">
                       <div class="w3-cell w3-cell-middle">
                         Veículos
@@ -186,7 +198,7 @@ Cores: #a81f2f #560d16 #72141f-->
                 </div>
                 <div class="w3-quarter">
                   <a href="<?php echo base_url('adm/cadastro-pre-lista')?>">
-                    <h6>Encaminhar Solicitação</h6>
+                    <h6>Nova Solicitação</h6>
                     <div class="w3-container w3-text-white w3-padding-16 w3-center w3-round" style="background-color: #72141f; color:#fff !important">
                       <i class="fa fa-share w3-xlarge"></i>
                       <div class="w3-clear"></div>

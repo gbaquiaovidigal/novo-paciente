@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Igreja extends CI_Controller {
+class Veiculo extends CI_Controller {
 	
 	function __construct(){
 		parent::__construct();
@@ -17,7 +17,7 @@ class Igreja extends CI_Controller {
 		$data['success'] = null;
 
 		 
-		$this->form_validation->set_rules('igreja','Descriçao Igreja','required|min_length[4]|trim');
+		$this->form_validation->set_rules('veiculo','Descriçao veiculo','required|min_length[4]|trim');
     	$this->form_validation->set_rules('cidade','Cidade','required|is_natural_no_zero|trim',array('is_natural_no_zero' => ' Você não selecionou a Cidade'));
 
 		if($this->form_validation->run() == FALSE){
@@ -25,7 +25,7 @@ class Igreja extends CI_Controller {
 			if ($data['error'] == NULL) {
 				/* Se a validação do dados ainda nao ocorreu, entao o que retorna 
 				no formulario é vazio,*/
-				$data['dataRegister'] = array('igreja' => '', 'cidade' => '');	
+				$data['dataRegister'] = array('veiculo' => '', 'cidade' => '');	
 			}
 			else{
 
@@ -38,24 +38,24 @@ class Igreja extends CI_Controller {
 			$dataRegister = $this->input->post();
 
 			$dataModel = array(
-				'ds_igreja' => $dataRegister['igreja'], 
+				'ds_veiculo' => $dataRegister['veiculo'], 
 				'id_cidade' => $dataRegister['cidade']);
-				$res = $this->Crud_model->Insert('igreja',$dataModel);
+				$res = $this->Crud_model->Insert('veiculo',$dataModel);
 
 			if($res){
 				$data['error'] = null;
 				// os dados voltam vazios novamente depois da confirmação
-				$data['dataRegister'] = array('cidade' => '', 'igreja' => '');
-				$data['success'] = "Igreja inserida com sucesso";
+				$data['dataRegister'] = array('cidade' => '', 'veiculo' => '');
+				$data['success'] = "Veículo inserida com sucesso";
 			}else{
-				$data['error'] = "Não foi possivel inserir a igreja";
+				$data['error'] = "Não foi possivel inserir a veiculo";
 			}
 		}
 		//cidades
 		$data['cidades'] = $this->Crud_model->ReadAll('cidade');
-		$header['title'] = "Lista CCB | Igrejas";
+		$header['title'] = "Paciente Móvel | Veículos";
 		$this->load->view('adm/commons/header',$header);
-	    $this->load->view('adm/cadastro/igreja/cadastro-igreja',$data);
+	    $this->load->view('adm/cadastro/veiculo/cadastro-veiculo',$data);
 	    $this->load->view('adm/commons/footer');
 		else:
 			redirect(base_url('login'));
@@ -70,13 +70,13 @@ class Igreja extends CI_Controller {
 
 	if (($this->session->userdata('logged')) and ($this->session->userdata('id_tipo_usuario') <= $nivel_user)) {
 		
-		#igrejas
+		#veiculos
 		$this->form_validation->set_rules('cidade','Nome da Cidade','required|min_length[4]|trim');
 
 		if($this->form_validation->run() == FALSE){
 
-			$sql = "SELECT i.id_igreja, i.ds_igreja, c.nome_cidade 
-				FROM igreja i
+			$sql = "SELECT i.id_veiculo, i.ds_veiculo, c.nome_cidade 
+				FROM veiculo i
 				INNER JOIN cidade c ON (c.id_cidade = i.id_cidade)
 				WHERE c.fg_ativo = 1 ORDER BY c.id_cidade desc limit 10";
 
@@ -85,19 +85,19 @@ class Igreja extends CI_Controller {
 		}else {
 			$dataRegister = $this->input->post('cidade');
 
-			$sql = "SELECT i.id_igreja, i.ds_igreja, c.nome_cidade 
-				FROM igreja i
+			$sql = "SELECT i.id_veiculo, i.ds_veiculo, c.nome_cidade 
+				FROM veiculo i
 				INNER JOIN cidade c ON (c.id_cidade = i.id_cidade)
 				WHERE c.fg_ativo = 1  and c.nome_cidade like '%$dataRegister%' ORDER BY c.nome_cidade desc limit 10";
 			$data['dataForm'] = $dataRegister; //Campo pesqusia com o que foi pesquisado
 		}
 
 		//consultando
-		$data['igrejas'] = $this->Crud_model->Query($sql);
+		$data['veiculos'] = $this->Crud_model->Query($sql);
 		//die(var_dump($data['cidades']));
-		$header['title'] = "Lista CCB | Igrejas";
+		$header['title'] = "Paciente Móvel | Veículos";
 		$this->load->view('adm/commons/header',$header);
-		$this->load->view('adm/cadastro/igreja/igrejas',$data);
+		$this->load->view('adm/cadastro/veiculo/veiculos',$data);
 		
 			}else{
 			redirect(base_url('login'));
@@ -113,7 +113,7 @@ class Igreja extends CI_Controller {
 
 			//validar dados
 			
-			$this->form_validation->set_rules('igreja','Descriçao Igreja','required|min_length[4]|trim');
+			$this->form_validation->set_rules('veiculo','Descriçao veiculo','required|min_length[4]|trim');
 	    	$this->form_validation->set_rules('cidade','Cidade','required|is_natural_no_zero|trim',array('is_natural_no_zero' => ' Você não selecionou a Cidade'));
 
 			// Se ainda não foi inserido o formulario
@@ -129,22 +129,22 @@ class Igreja extends CI_Controller {
 					if($this->input->get('id') == FALSE){
 
 						//Não havendo o parametro, redireciona a pagina
-						redirect(base_url('adm/igrejas'));
+						redirect(base_url('adm/veiculos'));
 					
 					}else{ //Se existir o parametro, faz a consulta no banco de dados
 						$id = (int) $this->input->get('id');
 						//formular consulta
-						$dataModel = array('id_igreja' => $id);
+						$dataModel = array('id_veiculo' => $id);
 						
-						$result = $this->Crud_model->Read('igreja',$dataModel);
+						$result = $this->Crud_model->Read('veiculo',$dataModel);
 
 						
 						// Se houver resultado, devolve o array com dados da consulta
 						if ($result) {
 							$data['dataRegister'] = 
 								array(
-									'id_igreja' => $result->id_igreja,
-									'igreja' => $result->ds_igreja,
+									'id_veiculo' => $result->id_veiculo,
+									'veiculo' => $result->ds_veiculo,
 									'cidade' => $result->id_cidade);
 							$data['cidades'] = $this->Crud_model->ReadAll('cidade'); 
 						}
@@ -164,14 +164,14 @@ class Igreja extends CI_Controller {
 			}else{
 
 				$dataRegister = $this->input->post();
-				$par = array('id_igreja' => $dataRegister['id_igreja']);
+				$par = array('id_veiculo' => $dataRegister['id_veiculo']);
 				$dataModel = array(
-					'ds_igreja' => $dataRegister['igreja'],
+					'ds_veiculo' => $dataRegister['veiculo'],
 					'id_cidade' => $dataRegister['cidade']);
 
-				$res = $this->Crud_model->Update('igreja',$dataModel,$par);
+				$res = $this->Crud_model->Update('veiculo',$dataModel,$par);
 				if ($res) {
-					redirect(base_url('adm/igrejas?cod=1'));
+					redirect(base_url('adm/veiculos?cod=1'));
 				}else{
 					$data['error'] = "Erro ao inserir no Banco de dados";
 				}
@@ -180,12 +180,12 @@ class Igreja extends CI_Controller {
 			// Exibir telas para o usuario
 
 			//Cabecalho
-			$header['title'] = "Lista CCB | Igrejas";
+			$header['title'] = "Paciente Móvel | Veículos";
 			$this->load->view('adm/commons/header',$header);
 			
 			//Se houver resultados na pesquisa, mostrar a pagina de edicao
 			if($result){
-				$this->load->view('adm/cadastro/igreja/editar-igreja',$data);
+				$this->load->view('adm/cadastro/veiculo/editar-veiculo',$data);
 	
 			}else{ // Se não tiver resultado na pesquisa, exibe mensagem de erro (Possivelmente mudou a url)
 
@@ -216,19 +216,19 @@ class Igreja extends CI_Controller {
 			if ($this->input->get('id') == FALSE) {
 				
 				//redireciona para outra pagina
-				redirect(base_url('adm/igrejas'));
+				redirect(base_url('adm/veiculos'));
 			
 			}else{ // Se estiver tudo ok
 
 				// Id recebe o paramentro da url
 				$id = (int) $this->input->get('id');
 				$dataModel = array('fg_ativo' => 0);
-				$par = array('id_igreja' => $id);
-				$result = $this->Crud_model->Update('igreja',$dataModel,$par);
+				$par = array('id_veiculo' => $id);
+				$result = $this->Crud_model->Update('veiculo',$dataModel,$par);
 
 				//Se ocorrer a remocao
 				if ($result) {
-					redirect('adm/igrejas?cod=2');
+					redirect('adm/veiculos?cod=2');
 				}else{
 					die('Erro na Remocao');
 				}

@@ -5,7 +5,7 @@
 				<div class="col-lg-12">
 					<div class="row">
 						<div class="text-center">
-							<h2 class="text-uppercase">Editar Igreja</h2>
+							<h2 class="text-uppercase">Editar Veículo</h2>
 						</div>
 					</div>
 				</div>
