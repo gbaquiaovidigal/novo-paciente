@@ -1,0 +1,20 @@
+Solicitaçao
+#Tela de usuario Comum
+- Nome Solicitacao
+- Descriçao
+- Tipo Solicitacao
+- Data Viagem
+- Origem
+- Destino
+- Acompanhantes
+#ADM
+- status
+- Horario Saida
+- Motorista
+- Veiculo
+#Sistema
+- Usuario
+- Data Solicitacao
+- Autorizador
+- Data Autorizacao
+- fg_ativo
