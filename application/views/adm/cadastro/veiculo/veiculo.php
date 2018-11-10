@@ -24,7 +24,7 @@
 										<input type="text" class="form-control" alt="lista-igrejas" placeholder="Para buscar a igreja digite aqui o nome da cidade. Ex.. Jacui" name="cidade" value="<?=$dataForm?>" autofocus>
 									</div>
 									<div class=" col-md-2 text-right">
-										<a href="<?=base_url('adm/cadastro-igreja')?>" class="btn" style="background-color: #72141f; color:#fff !important">Novo Veículo <i class="fa fa-plus"></i></a>
+										<a href="<?=base_url('adm/cadastro-veiculo')?>" class="btn" style="background-color: #72141f; color:#fff !important">Novo Veículo <i class="fa fa-plus"></i></a>
 									</div>
 								</div>
 								<br>
@@ -43,17 +43,17 @@
 							</thead>
 							<tbody>
 								<?php 
-								if ($igrejas):
-								foreach ($igrejas as $igreja): 
+								if ($veiculos):
+								foreach ($veiculos as $veiculo):
 									?>
 									<tr>
-										<td><?=$igreja->ds_igreja;?></td>
-										<td><?=$igreja->nome_cidade;?></td>
+										<td><?=$veiculo->ds_veiculo;?></td>
+										<td><?=$veiculo->placa;?></td>
 										<td>
-										<a href="<?=base_url('adm/editar-igreja?id='.$igreja->id_igreja)?>"><i class="fa fa-edit fa-2x" title="Editar Veículo"></i></a> 
+										<a href="<?=base_url('adm/editar-igreja?id='.$veiculo->id_veiculo)?>"><i class="fa fa-edit fa-2x" title="Editar Veículo"></i></a>
 										| 
 										<a onclick="return confirm('Deseja realmente excluir essa igreja?');" 
-										href="<?=base_url('adm/remover-igreja?id='.$igreja->id_igreja)?>"><i class="fa fa-remove fa-2x" title="Remover Veículo"></i></a></td>
+										href="<?=base_url('adm/remover-igreja?id='.$veiculo->id_veiculo)?>"><i class="fa fa-remove fa-2x" title="Remover Veículo"></i></a></td>
 									</tr>
 								<?php endforeach;
 								else:

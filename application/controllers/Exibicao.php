@@ -138,58 +138,8 @@ class Exibicao extends CI_Controller {
 
 		$nome_user = explode(" ", $data['user']->nome);
 		$data['nome_user'] = $nome_user[0];
-		
 
-		//Pesquisar as Listas
-		$sql = "SELECT l.id_lista, m.nome_mes, l.data_lista, r.nome_regiao, u.user
-				FROM lista l
-				INNER JOIN regiao r ON (l.id_regiao = r.id_regiao)
-				INNER JOIN mes m ON (m.id_mes = l.mes_lista)
-				LEFT OUTER JOIN usuario u ON (l.id_usuario = u.id_usuario)
-				WHERE l.fg_ativo = 1 and u.id_usuario = $id_user ORDER BY l.id_lista DESC LIMIT 15";
-
-		//consultando
-		$data['listas'] = $this->Crud_model->Query($sql);
-
-		//Pesquisar as Listas Encaminhadas gerais
-		$sql = "SELECT l.id_pre_lista, m.nome_mes, l.data_lista, r.nome_regiao, u.user as remetente, l.file_lista
-				FROM pre_lista l
-				INNER JOIN regiao r ON (l.id_regiao = r.id_regiao)
-				INNER JOIN mes m ON (m.id_mes = l.mes_lista)
-				LEFT OUTER JOIN usuario u ON (l.id_remetente = u.id_usuario)
-				LEFT OUTER JOIN usuario d ON (l.id_destinatario = d.id_usuario)
-				WHERE l.fg_ativo = 1 and l.id_destinatario = 0 ORDER BY l.id_pre_lista";
-		$data['listasPendentes'] = $this->Crud_model->Query($sql);
-		
-		//Pesquisar as Listas Encaminhadas ao usuario
-		$sql = "SELECT l.id_pre_lista, m.nome_mes, l.data_lista, r.nome_regiao, u.user as remetente, l.file_lista
-				FROM pre_lista l
-				INNER JOIN regiao r ON (l.id_regiao = r.id_regiao)
-				INNER JOIN mes m ON (m.id_mes = l.mes_lista)
-				LEFT OUTER JOIN usuario u ON (l.id_remetente = u.id_usuario)
-				LEFT OUTER JOIN usuario d ON (l.id_destinatario = d.id_usuario)
-				WHERE l.fg_ativo = 1 and d.id_usuario = $id_user ORDER BY l.id_pre_lista";
-
-		$data['listasPendentesUser'] = $this->Crud_model->Query($sql);
-		
-		//die(var_dump($data['listasPendentesUser']));
-
-		//Contador de listas pendentes ao usuario
-		$sql = "SELECT count(*) as qtd
-				FROM pre_lista l
-				LEFT OUTER JOIN usuario u ON (l.id_destinatario = u.id_usuario)
-				WHERE l.fg_ativo = 1  and u.id_usuario = $id_user";
-
-		$data['qtdListasPendentes'] = $this->Crud_model->Query($sql);
-		$data['qtdListasPendentes'] = $data['qtdListasPendentes'][0]->qtd;
-		
-		//buscar historico dos usuarios
-		$sql = "SELECT u.nome, u.img_perfil, r.nome_regiao FROM lista l 
-			INNER JOIN regiao r ON (l.id_regiao = r.id_regiao) 
-			INNER JOIN usuario u ON (l.id_usuario = u.id_usuario)
-			where l.fg_ativo = 1 ORDER by l.id_lista desc limit 10";
-		$data['noticias'] = $this->Crud_model->Query($sql);	
-
+		$data['noticias'] = [];
 		$this->load->view('adm/user/profile', $data);
 		
 		

@@ -42,20 +42,12 @@ Cores: #a81f2f #560d16 #72141f-->
   </div>
   <div class="w3-dropdown-hover w3-hide-small">
     <button class="w3-button w3-padding-large" title="Notifications"><i class="fa fa-bell"></i>
-      <?php if($qtdListasPendentes): ?>  
-      <span class="w3-badge w3-right w3-small w3-green"><?=$qtdListasPendentes?></span>
-      <?php endif; ?>  
+      <span class="w3-badge w3-right w3-small w3-green"></span>
     </button>     
     <div class="w3-dropdown-content w3-card w3-bar-block">
-      <?php if($qtdListasPendentes): ?>  
       <a href="#listas-encaminhadas" class="w3-bar-item w3-button">
-        Há <?php echo $qtdListasPendentes; ?> solicitações pendentes
+        Não há nenhuma solicitações pendentes
       </a>
-      <?php else: ?>
-        <h6 class="w3-bar w3-padding w3-center">
-          Não há nenhum alerta
-        </h6>
-      <?php endif;?>
     </div>
   </div>
   
@@ -155,18 +147,6 @@ Cores: #a81f2f #560d16 #72141f-->
                       </div>
                     </li>
                   </a>
-                  <!--
-                  <a class="w3-bar" href="<?php echo base_url('')?>" disabled>
-                    <li class="w3-cell-row w3-padding-12 ">
-                      <div class="w3-cell w3-cell-middle">
-                        Presbíteros
-                      </div>
-                      <div class="w3-cell w3-cell-middle w3-margin-right w3-right">
-                        <i class="fa fa-chevron-right"></i>
-                      </div>
-                    </li>
-                  </a>
-                  -->
                 </ul>
               </div>
             </div>
@@ -216,7 +196,7 @@ Cores: #a81f2f #560d16 #72141f-->
                 </div>
                 <div class="w3-quarter">
                   <a href="<?=base_url('adm/cidades')?>">
-                    <h6>Cidades</h4>
+                    <h6>Cidades</h6>
                     <div class="w3-container w3-text-white w3-padding-16 w3-center w3-round" style="background-color: #72141f; color:#fff !important">
                       <i class="fa fa-map-marker w3-xlarge"></i>
                       <div class="w3-clear"></div>
@@ -236,7 +216,7 @@ Cores: #a81f2f #560d16 #72141f-->
       <div class="w3-card w3-white w3-round w3-padding"><br>
         <h4 class="w3-opacity w3-center">Fila de Espera - Todos Usuários</h4>
         <hr>
-        <?php if ($listasPendentes): ?>
+        <?php if (false): ?>
         <table class="w3-table w3-striped w3-white">
           <thead class="" style="background-color: #72141f; color:#fff !important">
             <th class="" style="width: 20%">Enviado por</th>
@@ -246,26 +226,26 @@ Cores: #a81f2f #560d16 #72141f-->
             <th class="w3-center" style="width: 20%">Cadastrar Solicitação</th>
           </thead>
           <tbody style="min-height: 40vh">
-            <?php foreach ($listasPendentes as $lista): ?>
+
             <tr>
-              <td style="vertical-align: middle;"><?php echo $lista->remetente ?></td>
-              <td style="vertical-align: middle;"><?php echo $lista->nome_regiao ?></td>
-              <td style="vertical-align: middle;"><?php echo $lista->nome_mes ?></td>
+              <td style="vertical-align: middle;"></td>
+              <td style="vertical-align: middle;"></td>
+              <td style="vertical-align: middle;"></td>
               <td style="vertical-align: middle;">
-                <a href="<?php echo base_url('uploads/listas/'.$lista->file_lista) ?>" class="w3-btn w3-blue w3-block w3-round w3-small" title="Cadastrar lista" target="_blank">
+                <a href="" class="w3-btn w3-blue w3-block w3-round w3-small" title="Cadastrar lista" target="_blank">
                   Visualizar
                 </a>
               </td>
               <td>
-                <a href="<?php echo base_url('adm/gerar-lista?id='.$lista->id_pre_lista) ?>" class="w3-btn w3-blue w3-block w3-round w3-small" title="Cadastrar lista">
+                <a href="" class="w3-btn w3-blue w3-block w3-round w3-small" title="Cadastrar lista">
                   Cadastrar
                 </a>
               </td>
             </tr>
-            <?php endforeach ?>
+
           </tbody>
         </table>
-        <?php else: ?> 
+        <?php else: ?>
           <div class="w3-padding-16 w3-center">
             <p class="w3-opacity">Não há nenhuma solicitação pendente :)</p>
           </div>
@@ -281,7 +261,7 @@ Cores: #a81f2f #560d16 #72141f-->
       <div class="w3-card w3-white w3-round w3-padding"><br>
         <h4 class="w3-opacity w3-center">Solicitações Encaminhadas para mim</h4>
         <hr>
-        <?php if ($listasPendentesUser): ?>
+        <?php if (false): ?>
         <table class="w3-table w3-striped w3-white">
           <thead class="" style="background-color: #72141f; color:#fff !important">
             <th class="" style="width: 20%">Enviado por</th>
@@ -324,7 +304,7 @@ Cores: #a81f2f #560d16 #72141f-->
       <div class="w3-container w3-card w3-white w3-round w3-margin w3-padding"><br>
         <h4 class="w3-opacity w3-center">Minhas Solicitações</h4>
         <hr>
-        <?php if ($listas): ?>
+        <?php if (false): ?>
         <table class="w3-table w3-striped w3-white">
           <thead class="" style="background-color: #560d16; color:#fff !important">
             <th style="width: 60%">Região</th>

@@ -1,241 +1,246 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Veiculo extends CI_Controller {
-	
-	function __construct(){
-		parent::__construct();
-		$this->load->library('form_validation');
-	} 
-	
-	public function Register() {
+class Veiculo extends CI_Controller
+{
 
-		$nivel_user = 2; //Nivel requirido para visualizar a pagina
+    function __construct()
+    {
+        parent::__construct();
+        $this->load->library('form_validation');
+    }
 
-		if (($this->session->userdata('logged')) and ($this->session->userdata('id_tipo_usuario') <= $nivel_user)):
+    public function Register()
+    {
 
-		$data['success'] = null;
+        $nivel_user = 2; //Nivel requirido para visualizar a pagina
 
-		 
-		$this->form_validation->set_rules('veiculo','Descriçao veiculo','required|min_length[4]|trim');
-    	$this->form_validation->set_rules('cidade','Cidade','required|is_natural_no_zero|trim',array('is_natural_no_zero' => ' Você não selecionou a Cidade'));
+        if (($this->session->userdata('logged')) and ($this->session->userdata('id_tipo_usuario') <= $nivel_user)):
 
-		if($this->form_validation->run() == FALSE){
-			$data['error'] = validation_errors();
-			if ($data['error'] == NULL) {
-				/* Se a validação do dados ainda nao ocorreu, entao o que retorna 
-				no formulario é vazio,*/
-				$data['dataRegister'] = array('veiculo' => '', 'cidade' => '');	
-			}
-			else{
+            $data['success'] = null;
 
-				$data['dataRegister'] = $this->input->post();
-				//die(var_dump($data['dataRegister']));
-				/* Se ocorreu, os dados retorna para os campos, para o usuario nao precisar digitar 
-				tudo novamente no formulario*/
-			}
-		}else{
-			$dataRegister = $this->input->post();
 
-			$dataModel = array(
-				'ds_veiculo' => $dataRegister['veiculo'], 
-				'id_cidade' => $dataRegister['cidade']);
-				$res = $this->Crud_model->Insert('veiculo',$dataModel);
+            $this->form_validation->set_rules('veiculo', 'Descriçao veiculo', 'required|min_length[4]|trim');
+            $this->form_validation->set_rules('cidade', 'Cidade', 'required|is_natural_no_zero|trim', array('is_natural_no_zero' => ' Você não selecionou a Cidade'));
 
-			if($res){
-				$data['error'] = null;
-				// os dados voltam vazios novamente depois da confirmação
-				$data['dataRegister'] = array('cidade' => '', 'veiculo' => '');
-				$data['success'] = "Veículo inserida com sucesso";
-			}else{
-				$data['error'] = "Não foi possivel inserir a veiculo";
-			}
-		}
-		//cidades
-		$data['cidades'] = $this->Crud_model->ReadAll('cidade');
-		$header['title'] = "Paciente Móvel | Veículos";
-		$this->load->view('adm/commons/header',$header);
-	    $this->load->view('adm/cadastro/veiculo/cadastro-veiculo',$data);
-	    $this->load->view('adm/commons/footer');
-		else:
-			redirect(base_url('login'));
-		endif;
+            if ($this->form_validation->run() == FALSE) {
+                $data['error'] = validation_errors();
+                if ($data['error'] == NULL) {
+                    /* Se a validação do dados ainda nao ocorreu, entao o que retorna
+                    no formulario é vazio,*/
+                    $data['dataRegister'] = array('veiculo' => '', 'cidade' => '');
+                } else {
 
-	}
+                    $data['dataRegister'] = $this->input->post();
+                    //die(var_dump($data['dataRegister']));
+                    /* Se ocorreu, os dados retorna para os campos, para o usuario nao precisar digitar
+                    tudo novamente no formulario*/
+                }
+            } else {
+                $dataRegister = $this->input->post();
 
-	public function Listar(){
-		
-		
-	$nivel_user = 1; //Nivel requirido para visualizar a pagina
+                $dataModel = array(
+                    'ds_veiculo' => $dataRegister['veiculo'],
+                    'id_cidade' => $dataRegister['cidade']);
+                $res = $this->Crud_model->Insert('veiculo', $dataModel);
 
-	if (($this->session->userdata('logged')) and ($this->session->userdata('id_tipo_usuario') <= $nivel_user)) {
-		
-		#veiculos
-		$this->form_validation->set_rules('cidade','Nome da Cidade','required|min_length[4]|trim');
+                if ($res) {
+                    $data['error'] = null;
+                    // os dados voltam vazios novamente depois da confirmação
+                    $data['dataRegister'] = array('cidade' => '', 'veiculo' => '');
+                    $data['success'] = "Veículo inserida com sucesso";
+                } else {
+                    $data['error'] = "Não foi possivel inserir a veiculo";
+                }
+            }
+            //cidades
+            $data['cidades'] = $this->Crud_model->ReadAll('cidade');
+            $header['title'] = "Paciente Móvel | Veículos";
+            $this->load->view('adm/commons/header', $header);
+            $this->load->view('adm/cadastro/veiculo/cadastro-veiculo', $data);
+            $this->load->view('adm/commons/footer');
+        else:
+            redirect(base_url('login'));
+        endif;
 
-		if($this->form_validation->run() == FALSE){
+    }
 
-			$sql = "SELECT i.id_veiculo, i.ds_veiculo, c.nome_cidade 
-				FROM veiculo i
-				INNER JOIN cidade c ON (c.id_cidade = i.id_cidade)
-				WHERE c.fg_ativo = 1 ORDER BY c.id_cidade desc limit 10";
+    public function Listar()
+    {
 
-			$data['dataForm'] = ''; //Campo pesqusia vazio
 
-		}else {
-			$dataRegister = $this->input->post('cidade');
+        $nivel_user = 1; //Nivel requirido para visualizar a pagina
 
-			$sql = "SELECT i.id_veiculo, i.ds_veiculo, c.nome_cidade 
-				FROM veiculo i
-				INNER JOIN cidade c ON (c.id_cidade = i.id_cidade)
-				WHERE c.fg_ativo = 1  and c.nome_cidade like '%$dataRegister%' ORDER BY c.nome_cidade desc limit 10";
-			$data['dataForm'] = $dataRegister; //Campo pesqusia com o que foi pesquisado
-		}
+        if (($this->session->userdata('logged')) and ($this->session->userdata('id_tipo_usuario') <= $nivel_user)) {
 
-		//consultando
-		$data['veiculos'] = $this->Crud_model->Query($sql);
-		//die(var_dump($data['cidades']));
-		$header['title'] = "Paciente Móvel | Veículos";
-		$this->load->view('adm/commons/header',$header);
-		$this->load->view('adm/cadastro/veiculo/veiculos',$data);
-		
-			}else{
-			redirect(base_url('login'));
-		}
-	}
+            #veiculos
+            $this->form_validation->set_rules('cidade', 'Nome da Cidade', 'required|min_length[4]|trim');
 
-	public function Editar(){
-		
-		
-		$nivel_user = 1; //Nivel requirido para visualizar a pagina
-		
-		if (($this->session->userdata('logged')) and ($this->session->userdata('id_tipo_usuario') <= $nivel_user)):
+            if ($this->form_validation->run() == FALSE) {
 
-			//validar dados
-			
-			$this->form_validation->set_rules('veiculo','Descriçao veiculo','required|min_length[4]|trim');
-	    	$this->form_validation->set_rules('cidade','Cidade','required|is_natural_no_zero|trim',array('is_natural_no_zero' => ' Você não selecionou a Cidade'));
+                $sql = "SELECT id_veiculo, ds_veiculo, placa
+				FROM veiculo
+				WHERE fg_ativo = 1 ORDER BY id_veiculo desc limit 10";
 
-			// Se ainda não foi inserido o formulario
-			if ($this->form_validation->run() == FALSE) {
-				$data['error'] = validation_errors();
+                $data['dataForm'] = ''; //Campo pesqusia vazio
 
-				// Verificando se a validação ainda não ocorreu
-				if ($data['error'] == NULL) {
-				/* Se a validação do dados ainda nao ocorreu, entao o que retorna 
-				no formulario é o que vai ser editado*/
+            } else {
+                $dataRegister = $this->input->post('cidade');
 
-					// Verificando se a url passada tem o parametro de consulta				
-					if($this->input->get('id') == FALSE){
+                $sql = "SELECT id_veiculo, ds_veiculo, placa
+				FROM veiculo
+				WHERE fg_ativo = 1 and ds_veiculo like '%$dataRegister%' ORDER BY id_veiculo desc limit 10";
 
-						//Não havendo o parametro, redireciona a pagina
-						redirect(base_url('adm/veiculos'));
-					
-					}else{ //Se existir o parametro, faz a consulta no banco de dados
-						$id = (int) $this->input->get('id');
-						//formular consulta
-						$dataModel = array('id_veiculo' => $id);
-						
-						$result = $this->Crud_model->Read('veiculo',$dataModel);
+                $data['dataForm'] = $dataRegister; //Campo pesqusia com o que foi pesquisado
+            }
 
-						
-						// Se houver resultado, devolve o array com dados da consulta
-						if ($result) {
-							$data['dataRegister'] = 
-								array(
-									'id_veiculo' => $result->id_veiculo,
-									'veiculo' => $result->ds_veiculo,
-									'cidade' => $result->id_cidade);
-							$data['cidades'] = $this->Crud_model->ReadAll('cidade'); 
-						}
-						//die(var_dump($data['dataRegister']));
-					}
+            //consultando
+            $data['veiculos'] = $this->Crud_model->Query($sql);
 
-				// Se a validação ocorreu e existe erros
-				}else{
-					/* Se ocorreu, os dados retorna para os campos, para o usuario nao precisar digitar tudo novamente no formulario*/
-					$result = true;
-					$data['dataRegister'] = $this->input->post();
-					$data['cidades'] = $this->Crud_model->ReadAll('cidade');
-					//die(var_dump($data['dataRegister']));
-				}
+            $header['title'] = "Paciente Móvel | Veículos";
+            $this->load->view('adm/commons/header', $header);
+            $this->load->view('adm/cadastro/veiculo/veiculo', $data);
+            $this->load->view('adm/commons/footer');
 
-			// Se não existir erros na validação, então insere no banco de dados
-			}else{
+        } else {
+            redirect(base_url('login'));
+        }
+    }
 
-				$dataRegister = $this->input->post();
-				$par = array('id_veiculo' => $dataRegister['id_veiculo']);
-				$dataModel = array(
-					'ds_veiculo' => $dataRegister['veiculo'],
-					'id_cidade' => $dataRegister['cidade']);
+    public function Editar()
+    {
 
-				$res = $this->Crud_model->Update('veiculo',$dataModel,$par);
-				if ($res) {
-					redirect(base_url('adm/veiculos?cod=1'));
-				}else{
-					$data['error'] = "Erro ao inserir no Banco de dados";
-				}
-			}
 
-			// Exibir telas para o usuario
+        $nivel_user = 1; //Nivel requirido para visualizar a pagina
 
-			//Cabecalho
-			$header['title'] = "Paciente Móvel | Veículos";
-			$this->load->view('adm/commons/header',$header);
-			
-			//Se houver resultados na pesquisa, mostrar a pagina de edicao
-			if($result){
-				$this->load->view('adm/cadastro/veiculo/editar-veiculo',$data);
-	
-			}else{ // Se não tiver resultado na pesquisa, exibe mensagem de erro (Possivelmente mudou a url)
+        if (($this->session->userdata('logged')) and ($this->session->userdata('id_tipo_usuario') <= $nivel_user)):
 
-				$data['mensagem'] = "Não existe dados para essa consulta, verifique o link e tente novamente";
-				$data['link'] = "adm/usuarios"; 
-				//Mensagem de erro se a url estiver invalida
-				$this->load->view('errors/cli/meu_erro',$data);
-				}
-			
-			//Rodape
-			$this->load->view('adm/commons/footer');
+            //validar dados
 
-		else: // Se não estiver logado redireciona para tela de login..
-			redirect(base_url('login'));
-		endif;
+            $this->form_validation->set_rules('veiculo', 'Descriçao veiculo', 'required|min_length[4]|trim');
+            $this->form_validation->set_rules('cidade', 'Cidade', 'required|is_natural_no_zero|trim', array('is_natural_no_zero' => ' Você não selecionou a Cidade'));
 
-		//Fim da função
-	}
+            // Se ainda não foi inserido o formulario
+            if ($this->form_validation->run() == FALSE) {
+                $data['error'] = validation_errors();
 
-	public function Remover(){
-		
-		
-		$nivel_user = 1; //Nivel requirido para visualizar a pagina
+                // Verificando se a validação ainda não ocorreu
+                if ($data['error'] == NULL) {
+                    /* Se a validação do dados ainda nao ocorreu, entao o que retorna
+                    no formulario é o que vai ser editado*/
 
-		if (($this->session->userdata('logged')) and ($this->session->userdata('id_tu') <= $nivel_user)) {
-			
-			//Se a url nao tiver o parametro de consulta
-			if ($this->input->get('id') == FALSE) {
-				
-				//redireciona para outra pagina
-				redirect(base_url('adm/veiculos'));
-			
-			}else{ // Se estiver tudo ok
+                    // Verificando se a url passada tem o parametro de consulta
+                    if ($this->input->get('id') == FALSE) {
 
-				// Id recebe o paramentro da url
-				$id = (int) $this->input->get('id');
-				$dataModel = array('fg_ativo' => 0);
-				$par = array('id_veiculo' => $id);
-				$result = $this->Crud_model->Update('veiculo',$dataModel,$par);
+                        //Não havendo o parametro, redireciona a pagina
+                        redirect(base_url('adm/veiculos'));
 
-				//Se ocorrer a remocao
-				if ($result) {
-					redirect('adm/veiculos?cod=2');
-				}else{
-					die('Erro na Remocao');
-				}
-			}
-		}else{
-			redirect(base_url('adm/login'));
-		}
-	}
+                    } else { //Se existir o parametro, faz a consulta no banco de dados
+                        $id = (int)$this->input->get('id');
+                        //formular consulta
+                        $dataModel = array('id_veiculo' => $id);
+
+                        $result = $this->Crud_model->Read('veiculo', $dataModel);
+
+
+                        // Se houver resultado, devolve o array com dados da consulta
+                        if ($result) {
+                            $data['dataRegister'] =
+                                array(
+                                    'id_veiculo' => $result->id_veiculo,
+                                    'veiculo' => $result->ds_veiculo,
+                                    'cidade' => $result->id_cidade);
+                            $data['cidades'] = $this->Crud_model->ReadAll('cidade');
+                        }
+                        //die(var_dump($data['dataRegister']));
+                    }
+
+                    // Se a validação ocorreu e existe erros
+                } else {
+                    /* Se ocorreu, os dados retorna para os campos, para o usuario nao precisar digitar tudo novamente no formulario*/
+                    $result = true;
+                    $data['dataRegister'] = $this->input->post();
+                    $data['cidades'] = $this->Crud_model->ReadAll('cidade');
+                    //die(var_dump($data['dataRegister']));
+                }
+
+                // Se não existir erros na validação, então insere no banco de dados
+            } else {
+
+                $dataRegister = $this->input->post();
+                $par = array('id_veiculo' => $dataRegister['id_veiculo']);
+                $dataModel = array(
+                    'ds_veiculo' => $dataRegister['veiculo'],
+                    'id_cidade' => $dataRegister['cidade']);
+
+                $res = $this->Crud_model->Update('veiculo', $dataModel, $par);
+                if ($res) {
+                    redirect(base_url('adm/veiculos?cod=1'));
+                } else {
+                    $data['error'] = "Erro ao inserir no Banco de dados";
+                }
+            }
+
+            // Exibir telas para o usuario
+
+            //Cabecalho
+            $header['title'] = "Paciente Móvel | Veículos";
+            $this->load->view('adm/commons/header', $header);
+
+            //Se houver resultados na pesquisa, mostrar a pagina de edicao
+            if ($result) {
+                $this->load->view('adm/cadastro/veiculo/editar-veiculo', $data);
+
+            } else { // Se não tiver resultado na pesquisa, exibe mensagem de erro (Possivelmente mudou a url)
+
+                $data['mensagem'] = "Não existe dados para essa consulta, verifique o link e tente novamente";
+                $data['link'] = "adm/usuarios";
+                //Mensagem de erro se a url estiver invalida
+                $this->load->view('errors/cli/meu_erro', $data);
+            }
+
+            //Rodape
+            $this->load->view('adm/commons/footer');
+
+        else: // Se não estiver logado redireciona para tela de login..
+            redirect(base_url('login'));
+        endif;
+
+        //Fim da função
+    }
+
+    public function Remover()
+    {
+
+
+        $nivel_user = 1; //Nivel requirido para visualizar a pagina
+
+        if (($this->session->userdata('logged')) and ($this->session->userdata('id_tu') <= $nivel_user)) {
+
+            //Se a url nao tiver o parametro de consulta
+            if ($this->input->get('id') == FALSE) {
+
+                //redireciona para outra pagina
+                redirect(base_url('adm/veiculos'));
+
+            } else { // Se estiver tudo ok
+
+                // Id recebe o paramentro da url
+                $id = (int)$this->input->get('id');
+                $dataModel = array('fg_ativo' => 0);
+                $par = array('id_veiculo' => $id);
+                $result = $this->Crud_model->Update('veiculo', $dataModel, $par);
+
+                //Se ocorrer a remocao
+                if ($result) {
+                    redirect('adm/veiculos?cod=2');
+                } else {
+                    die('Erro na Remocao');
+                }
+            }
+        } else {
+            redirect(base_url('adm/login'));
+        }
+    }
 
 }
