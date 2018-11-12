@@ -33,8 +33,8 @@
                                 <label for="confSenha">Confirmar Senha</label>
                                 <input type="password" id="confSenha" class="form-control" name="confSenha" required="" placeholder="Confirme nova senha"/>
                                     <br>
-                                    <a class="btn btn-lg btn-primary" href="<?=base_url('profile')?>">Voltar</a>
-                                    <button class="btn btn-lg btn-primary">Alterar</button>
+                                    <a class="btn btn-lg" style="background-color: #72141f; color:#fff !important" href="<?=base_url('profile')?>">Voltar</a>
+                                    <button class="btn btn-lg" style="background-color: #72141f; color:#fff !important">Alterar</button>
                             </form>      
                         </div>
                     </div>

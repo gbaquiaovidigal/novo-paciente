@@ -127,26 +127,7 @@ Cores: #a81f2f #560d16 #72141f-->
                       </div>
                     </li>
                   </a>
-                  <a class="w3-bar" href="<?php echo base_url('adm/cidades')?>">
-                    <li class="w3-cell-row w3-padding-12 w3-border-bottom ">
-                      <div class="w3-cell w3-cell-middle">
-                        Cidades
-                      </div>
-                      <div class="w3-cell w3-cell-middle w3-margin-right w3-right">
-                        <i class="fa fa-chevron-right"></i>
-                      </div>
-                    </li>
-                  </a>
-                  <a class="w3-bar" href="<?php echo base_url('adm/regioes')?>">
-                    <li class="w3-cell-row w3-padding-12">
-                      <div class="w3-cell w3-cell-middle">
-                        Regiões
-                      </div>
-                      <div class="w3-cell w3-cell-middle w3-margin-right w3-right">
-                        <i class="fa fa-chevron-right"></i>
-                      </div>
-                    </li>
-                  </a>
+                  
                 </ul>
               </div>
             </div>
@@ -167,7 +148,7 @@ Cores: #a81f2f #560d16 #72141f-->
               <h4 class="w3-opacity w3-center">Acesso Rápido</h4>
               <hr>
               <div class="w3-row-padding w3-margin-bottom w3-center">
-                <div class="w3-quarter">
+                <div class="w3-third">
                   <h6>Solicitações</h6>
                   <a href="<?=base_url('adm/listas')?>">
                   <div class="w3-container w3-padding-16 w3-center w3-round" style="background-color: #72141f; color:#fff !important">
@@ -176,7 +157,7 @@ Cores: #a81f2f #560d16 #72141f-->
                   </div>
                   </a>
                 </div>
-                <div class="w3-quarter">
+                <div class="w3-third">
                   <a href="<?php echo base_url('adm/cadastro-pre-lista')?>">
                     <h6>Nova Solicitação</h6>
                     <div class="w3-container w3-text-white w3-padding-16 w3-center w3-round" style="background-color: #72141f; color:#fff !important">
@@ -185,6 +166,7 @@ Cores: #a81f2f #560d16 #72141f-->
                     </div>
                   </a>
                 </div>
+                <!--
                 <div class="w3-quarter">
                   <a href="<?=base_url('adm/regioes')?>">
                     <h6>Regiões</h6>
@@ -194,11 +176,12 @@ Cores: #a81f2f #560d16 #72141f-->
                     </div>
                   </a>
                 </div>
-                <div class="w3-quarter">
-                  <a href="<?=base_url('adm/cidades')?>">
-                    <h6>Cidades</h6>
+                -->
+                <div class="w3-third">
+                  <a href="<?=base_url('profile-editar')?>">
+                    <h6>Meu Perfil</h6>
                     <div class="w3-container w3-text-white w3-padding-16 w3-center w3-round" style="background-color: #72141f; color:#fff !important">
-                      <i class="fa fa-map-marker w3-xlarge"></i>
+                      <i class="fa fa-user-o w3-xlarge"></i>
                       <div class="w3-clear"></div>
                     </div>
                   </a>
@@ -328,7 +311,7 @@ Cores: #a81f2f #560d16 #72141f-->
           </div>
         <?php endif; ?>
         <?php if ($permissao == 1): ?>
-          <a href="<?php echo base_url('adm/listas') ?>"><h6 class="w3-center w3-padding-16 w3-margin-right w3-text-theme">Todas as listas
+          <a href="<?php echo base_url('adm/solicitacoes') ?>"><h6 class="w3-center w3-padding-16 w3-margin-right w3-text-theme">Todas as solicitações
         <?php endif ?>
         </h6></a>
       </div>

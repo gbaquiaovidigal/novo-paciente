@@ -43,6 +43,12 @@ p {
   line-height: 1.5;
   margin-bottom: 20px;
 }
+
+.btn-padrao{
+  background-color: #72141f; 
+  
+}
+
 .bg-primary {
   background-color: rgb(28,149,113);
 }

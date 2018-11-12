@@ -19,7 +19,7 @@
                             <div class="row">
                                 <div class="col-sm-6">
                                     <img class="img-responsive img-circle" src="<?=base_url('assets/img/users/'.$perfil->img_perfil)?>">
-                                    <button class="btn btn-primary" data-toggle="modal" data-target="#contato" style="margin-top:5px;">Alterar Foto</button>
+                                    <button class="btn"  style="background-color: #72141f; color:#fff !important" data-toggle="modal" data-target="#contato" style="margin-top:5px;">Alterar Foto</button>
                                 </div>
 
                                 <div class="col-sm-6">
@@ -41,7 +41,7 @@
                                         <input type="text" name="user" class="form-control" value="<?=$dataRegister['user']?>" required>
                                         <!-- Cidade -->
                                         <label>Cidade</label>
-                                        <select class="form-control selectpicker" data-style="btn-primary" data-size="2" data-live-search="true" data-live-search-Normalize="true" name="cidade">
+                                        <select class="form-control selectpicker" data-style="btn" style="background-color: #72141f; color:#fff !important" data-size="2" data-live-search="true" data-live-search-Normalize="true" name="cidade">
                                             <?php foreach ($cidades as $cidade): ?>
                                                 <option value="<?=$cidade->id_cidade?>"
                                                 <?php if($cidade->id_cidade == $dataRegister['cidade']): echo "selected"; endif; ?>
@@ -51,8 +51,8 @@
                                         <!-- Id_user -->
                                         <input type="hidden" name="id_user" >
                                         <br><br>
-                                        <a href="<?=base_url('profile')?>" class="btn btn-xl btn-primary">Voltar</a>
-                                        <button class="btn btn-xl btn-primary" value="Editar">Editar</button>
+                                        <a href="<?=base_url('profile')?>" class="btn btn-xl" style="background-color: #72141f; color:#fff !important">Voltar</a>
+                                        <button class="btn btn-xl" style="background-color: #72141f; color:#fff !important" value="Editar">Editar</button>
                                     </form>
                                 </div>
                             </div>   
