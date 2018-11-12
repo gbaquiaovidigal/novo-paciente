@@ -10,8 +10,7 @@ class Veiculo extends CI_Controller
         $this->load->library('form_validation');
     }
 
-    public function Register()
-    {
+    public function Register(){
 
         $nivel_user = 2; //Nivel requirido para visualizar a pagina
 
@@ -20,15 +19,16 @@ class Veiculo extends CI_Controller
             $data['success'] = null;
 
 
-            $this->form_validation->set_rules('veiculo', 'Descriçao veiculo', 'required|min_length[4]|trim');
-            $this->form_validation->set_rules('cidade', 'Cidade', 'required|is_natural_no_zero|trim', array('is_natural_no_zero' => ' Você não selecionou a Cidade'));
+            $this->form_validation->set_rules('veiculo', 'Descriçao do veículo', 'required|min_length[4]|trim');
+            $this->form_validation->set_rules('placa', 'Placa', 'required|min_length[7]|trim');
+           // $this->form_validation->set_rules('cidade', 'Cidade', 'required|is_natural_no_zero|trim', array('is_natural_no_zero' => ' Você não selecionou a Cidade'));
 
             if ($this->form_validation->run() == FALSE) {
                 $data['error'] = validation_errors();
                 if ($data['error'] == NULL) {
                     /* Se a validação do dados ainda nao ocorreu, entao o que retorna
                     no formulario é vazio,*/
-                    $data['dataRegister'] = array('veiculo' => '', 'cidade' => '');
+                    $data['dataRegister'] = array('veiculo' => '', 'placa' => '');
                 } else {
 
                     $data['dataRegister'] = $this->input->post();
@@ -41,20 +41,20 @@ class Veiculo extends CI_Controller
 
                 $dataModel = array(
                     'ds_veiculo' => $dataRegister['veiculo'],
-                    'id_cidade' => $dataRegister['cidade']);
+                    'placa' => $dataRegister['placa']);
                 $res = $this->Crud_model->Insert('veiculo', $dataModel);
 
                 if ($res) {
                     $data['error'] = null;
                     // os dados voltam vazios novamente depois da confirmação
-                    $data['dataRegister'] = array('cidade' => '', 'veiculo' => '');
+                    $data['dataRegister'] = array('placa' => '', 'veiculo' => '');
                     $data['success'] = "Veículo inserida com sucesso";
                 } else {
                     $data['error'] = "Não foi possivel inserir a veiculo";
                 }
             }
-            //cidades
-            $data['cidades'] = $this->Crud_model->ReadAll('cidade');
+            /*cidades
+            $data['cidades'] = $this->Crud_model->ReadAll('cidade');*/
             $header['title'] = "Paciente Móvel | Veículos";
             $this->load->view('adm/commons/header', $header);
             $this->load->view('adm/cadastro/veiculo/cadastro-veiculo', $data);
@@ -65,16 +65,14 @@ class Veiculo extends CI_Controller
 
     }
 
-    public function Listar()
-    {
-
+    public function Listar(){
 
         $nivel_user = 1; //Nivel requirido para visualizar a pagina
 
         if (($this->session->userdata('logged')) and ($this->session->userdata('id_tipo_usuario') <= $nivel_user)) {
 
             #veiculos
-            $this->form_validation->set_rules('cidade', 'Nome da Cidade', 'required|min_length[4]|trim');
+            $this->form_validation->set_rules('placa', 'Placa', 'required|min_length[7]|trim');
 
             if ($this->form_validation->run() == FALSE) {
 
@@ -85,13 +83,13 @@ class Veiculo extends CI_Controller
                 $data['dataForm'] = ''; //Campo pesqusia vazio
 
             } else {
-                $dataRegister = $this->input->post('cidade');
+                $dataRegister = $this->input->post('placa');
 
                 $sql = "SELECT id_veiculo, ds_veiculo, placa
 				FROM veiculo
 				WHERE fg_ativo = 1 and ds_veiculo like '%$dataRegister%' ORDER BY id_veiculo desc limit 10";
 
-                $data['dataForm'] = $dataRegister; //Campo pesqusia com o que foi pesquisado
+                $data['dataForm'] = $dataRegister; //Campo pesquisa com o que foi pesquisado
             }
 
             //consultando
@@ -107,9 +105,7 @@ class Veiculo extends CI_Controller
         }
     }
 
-    public function Editar()
-    {
-
+    public function Editar(){
 
         $nivel_user = 1; //Nivel requirido para visualizar a pagina
 
@@ -117,8 +113,8 @@ class Veiculo extends CI_Controller
 
             //validar dados
 
-            $this->form_validation->set_rules('veiculo', 'Descriçao veiculo', 'required|min_length[4]|trim');
-            $this->form_validation->set_rules('cidade', 'Cidade', 'required|is_natural_no_zero|trim', array('is_natural_no_zero' => ' Você não selecionou a Cidade'));
+            $this->form_validation->set_rules('veiculo', 'Descriçao do veículo', 'required|min_length[4]|trim');
+            $this->form_validation->set_rules('placa', 'Placa', 'required|min_length[7]|trim');
 
             // Se ainda não foi inserido o formulario
             if ($this->form_validation->run() == FALSE) {
@@ -142,15 +138,14 @@ class Veiculo extends CI_Controller
 
                         $result = $this->Crud_model->Read('veiculo', $dataModel);
 
-
                         // Se houver resultado, devolve o array com dados da consulta
                         if ($result) {
                             $data['dataRegister'] =
                                 array(
                                     'id_veiculo' => $result->id_veiculo,
                                     'veiculo' => $result->ds_veiculo,
-                                    'cidade' => $result->id_cidade);
-                            $data['cidades'] = $this->Crud_model->ReadAll('cidade');
+                                    'placa' => $result->placa);
+                            //$data['cidades'] = $this->Crud_model->ReadAll('cidade');
                         }
                         //die(var_dump($data['dataRegister']));
                     }
@@ -160,7 +155,7 @@ class Veiculo extends CI_Controller
                     /* Se ocorreu, os dados retorna para os campos, para o usuario nao precisar digitar tudo novamente no formulario*/
                     $result = true;
                     $data['dataRegister'] = $this->input->post();
-                    $data['cidades'] = $this->Crud_model->ReadAll('cidade');
+                    //$data['cidades'] = $this->Crud_model->ReadAll('cidade');
                     //die(var_dump($data['dataRegister']));
                 }
 
@@ -171,11 +166,11 @@ class Veiculo extends CI_Controller
                 $par = array('id_veiculo' => $dataRegister['id_veiculo']);
                 $dataModel = array(
                     'ds_veiculo' => $dataRegister['veiculo'],
-                    'id_cidade' => $dataRegister['cidade']);
+                    'placa' => $dataRegister['placa']);
 
                 $res = $this->Crud_model->Update('veiculo', $dataModel, $par);
                 if ($res) {
-                    redirect(base_url('adm/veiculos?cod=1'));
+                    redirect(base_url('adm/veiculo?cod=1'));
                 } else {
                     $data['error'] = "Erro ao inserir no Banco de dados";
                 }
@@ -209,9 +204,7 @@ class Veiculo extends CI_Controller
         //Fim da função
     }
 
-    public function Remover()
-    {
-
+    public function Remover(){
 
         $nivel_user = 1; //Nivel requirido para visualizar a pagina
 
@@ -233,7 +226,7 @@ class Veiculo extends CI_Controller
 
                 //Se ocorrer a remocao
                 if ($result) {
-                    redirect('adm/veiculos?cod=2');
+                    redirect('adm/veiculo?cod=2');
                 } else {
                     die('Erro na Remocao');
                 }

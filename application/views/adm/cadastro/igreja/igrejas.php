@@ -12,7 +12,7 @@
                            	<div class="alert alert-success text-center" role="alert">Veículo editado com sucesso</div>
 							<hr>
 							<?php elseif ($this->input->get('cod') == 2): ?>
-                           	<div class="alert alert-success text-center" role="alert">Veículo Removido com sucesso</div>
+                           	<div class="alert alert-success text-center" role="alert">Veículo Removida com sucesso</div>
 							<hr>
 							<?php endif; ?>
 							<form action="<?=base_url('adm/veiculos')?>" method="post">
@@ -21,7 +21,7 @@
 										<a href="<?=base_url('profile#menu')?>" class="btn" style="background-color: #72141f; color:#fff !important"><i class="fa fa-chevron-left"></i> Voltar</a>
 									</div>
 									<div class="col-md-8">
-										<input type="text" class="form-control" alt="lista-igrejas" placeholder="Para buscar o veículo digite aqui o nome. Ex.. Uno" name="veiculo" value="<?=$dataForm?>" autofocus>
+										<input type="text" class="form-control" alt="lista-veiculos" placeholder="Para buscar a veiculo digite aqui o nome da cidade. Ex.. Jacui" name="cidade" value="<?=$dataForm?>" autofocus>
 									</div>
 									<div class=" col-md-2 text-right">
 										<a href="<?=base_url('adm/cadastro-veiculo')?>" class="btn" style="background-color: #72141f; color:#fff !important">Novo Veículo <i class="fa fa-plus"></i></a>
@@ -44,15 +44,15 @@
 							<tbody>
 								<?php 
 								if ($veiculos):
-								foreach ($veiculos as $veiculo):
+								foreach ($veiculos as $veiculo): 
 									?>
 									<tr>
 										<td><?=$veiculo->ds_veiculo;?></td>
-										<td><?=$veiculo->placa;?></td>
+										<td><?=$veiculo->nome_cidade;?></td>
 										<td>
-										<a href="<?=base_url('adm/editar-veiculo?id='.$veiculo->id_veiculo)?>"><i class="fa fa-edit fa-2x" title="Editar Veículo"></i></a>
+										<a href="<?=base_url('adm/editar-veiculo?id='.$veiculo->id_veiculo)?>"><i class="fa fa-edit fa-2x" title="Editar Veículo"></i></a> 
 										| 
-										<a onclick="return confirm('Deseja realmente excluir esse veículo?');" 
+										<a onclick="return confirm('Deseja realmente excluir essa veiculo?');" 
 										href="<?=base_url('adm/remover-veiculo?id='.$veiculo->id_veiculo)?>"><i class="fa fa-remove fa-2x" title="Remover Veículo"></i></a></td>
 									</tr>
 								<?php endforeach;

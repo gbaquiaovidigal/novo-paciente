@@ -24,16 +24,23 @@
                         <?php endif; ?>
                           	<hr>
 							<form method="POST" action="<?=base_url('adm/cadastro-veiculo')?>">
-	
-								<label for="Veiculo"><h4><strong>Descrição do veículo</strong></h4></label>
-								<input type="text" class="form-control" name="veiculo" id="veiculo" required="" value="<?=$dataRegister['veiculo']?>" placeholder="Insira a descrição do Veículo"> 
-								</br>
-								<label for="Veiculo"><h4><strong>Nome do veículo</strong></h4></label>
-								<input type="text" class="form-control" name="placa" id="placa" required="" value="<?=$dataRegister['placa']?>" placeholder="Insira a placa do Veículo. Ex.: GSA-8888"> 
-								</br>
-								<a href="<?=base_url('adm/veiculo');?>" class="btn btn-lg" style="background-color: #72141f; color:#fff !important">Cancelar</a>
-								<button class="btn btn-lg" style="background-color: #72141f; color:#fff !important">Inserir</button>
+								<!--Select cidade-->
+								<label for="cidade"><h4><strong>Cidade</strong></h4></label>
+								<select class="form-control selectpicker" data-size="3" id="cidade" name="cidade" data-style="bg-primary" data-live-search="true" title="Selecione a Cidade" required="">
+								<?php foreach ($cidades as $cidade): ?>
+									<option value="<?=$cidade->id_cidade?>"
+									<?php if($cidade->id_cidade == $dataRegister['cidade']) {echo "selected"; } ?>
+									><?=$cidade->nome_cidade?></option>
+								<?php endforeach ?>
+								</select>
 								
+								<!-- Data da Lista-->
+								
+								<label for="Veiculo"><h4><strong>Nome do veiculo</strong></h4></label>
+								<input type="text" class="form-control" name="veiculo" id="veiculo" required="" value="<?=$dataRegister['veiculo']?>" placeholder="Insira o nome da Igreja"> 
+								</br>
+								<a href="<?=base_url('adm/veiculos');?>" class="btn btn-lg btn-primary">Cancelar</a>
+								<button class="btn btn-lg btn-primary">Inserir</button>
 							</form>
 						</div>
 						<div class="col-md-2"></div>
