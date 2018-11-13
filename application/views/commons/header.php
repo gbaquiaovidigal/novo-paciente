@@ -29,7 +29,7 @@
     <link rel = "stylesheet" href="<?=base_url('assets/vendor/bootstrap/css/bootstrap-select.min.css')?>">
     
      <!-- Shortcut -->
-    <link rel="shortcut icon" type="image/x-png" href="<?=base_url('assets/img/short.jpg')?>">
+    <link rel="shortcut icon" type="image/x-png" href="<?=base_url('assets/img/icon-48x48.png')?>">
 
   <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

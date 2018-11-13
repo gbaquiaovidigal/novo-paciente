@@ -26,7 +26,7 @@
 								<label for="Veiculo"><h4><strong>Descrição do veículo</strong></h4></label>
 								<input type="text" class="form-control" name="veiculo" id="veiculo" required="" value="<?=$dataRegister['veiculo']?>" placeholder="Insira a descrição do Veículo"> 
 								</br>
-								<label for="Veiculo"><h4><strong>Nome do veículo</strong></h4></label>
+								<label for="Veiculo"><h4><strong>Placa do veículo</strong></h4></label>
 								<input type="text" class="form-control" name="placa" id="placa" required="" value="<?=$dataRegister['placa']?>" placeholder="Insira a placa do Veículo. Ex.: GSA-8888"> 
 								</br>
 								<a href="<?=base_url('adm/veiculo');?>" class="btn btn-lg" style="background-color: #72141f; color:#fff !important">Cancelar</a>

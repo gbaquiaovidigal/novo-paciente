@@ -15,6 +15,9 @@
 <!-- Bootstrap -->
 <link href="<?=base_url('assets/bootstrap/css/bootstrap.min.css')?>" rel="stylesheet">
 
+<!-- Shortcut -->
+<link rel="shortcut icon" type="image/x-png" href="<?=base_url('assets/img/icon-48x48.png')?>">
+
 <style>
     html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}a{text-decoration: none;}
 

@@ -129,7 +129,7 @@ class Veiculo extends CI_Controller
                     if ($this->input->get('id') == FALSE) {
 
                         //Não havendo o parametro, redireciona a pagina
-                        redirect(base_url('adm/veiculos'));
+                        redirect(base_url('adm/veiculo'));
 
                     } else { //Se existir o parametro, faz a consulta no banco de dados
                         $id = (int)$this->input->get('id');

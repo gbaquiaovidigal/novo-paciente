@@ -41,7 +41,7 @@
     <script src="<?=base_url('assets/js/imagem-perfil.js')?>"></script>
 
      <!-- Shortcut -->
-    <link rel="shortcut icon" type="image/x-png" href="<?=base_url('assets/img/IMAGEM.jpg')?>">
+    <link rel="shortcut icon" type="image/x-png" href="<?=base_url('assets/img/icon-48x48.png')?>">
 	
 </head>
 

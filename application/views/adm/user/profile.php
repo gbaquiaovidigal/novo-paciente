@@ -8,6 +8,8 @@
 <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans'>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
+<!-- Shortcut -->
+<link rel="shortcut icon" type="image/x-png" href="<?=base_url('assets/img/icon-48x48.png')?>">
 
 <style>
 html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}a{text-decoration: none;}
@@ -152,7 +154,7 @@ Cores: #a81f2f #560d16 #72141f-->
                   <h6>Solicitações</h6>
                   <a href="<?=base_url('adm/listas')?>">
                   <div class="w3-container w3-padding-16 w3-center w3-round" style="background-color: #72141f; color:#fff !important">
-                    <i class="fa fa-th-list w3-xlarge"></i>
+                    <i class="fa fa-list-alt w3-xlarge"></i>
                     <div class="w3-clear"></div>
                   </div>
                   </a>
@@ -178,10 +180,10 @@ Cores: #a81f2f #560d16 #72141f-->
                 </div>
                 -->
                 <div class="w3-third">
-                  <a href="<?=base_url('profile-editar')?>">
-                    <h6>Meu Perfil</h6>
+                  <a href="<?=base_url('adm/usuarios')?>">
+                    <h6>Usuários</h6>
                     <div class="w3-container w3-text-white w3-padding-16 w3-center w3-round" style="background-color: #72141f; color:#fff !important">
-                      <i class="fa fa-user-o w3-xlarge"></i>
+                      <i class="fa fa-users w3-xlarge"></i>
                       <div class="w3-clear"></div>
                     </div>
                   </a>
