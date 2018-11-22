@@ -89,7 +89,7 @@ Cores: #a81f2f #560d16 #72141f-->
               <hr>
               <div class="w3-row-padding w3-margin-bottom">
                 <ul class="w3-ul">
-                  <a class="w3-bar" href="<?php echo base_url('adm/listas')?>">
+                  <a class="w3-bar" href="<?php echo base_url('adm/solicitacoes')?>">
                     <li class="w3-cell-row w3-padding-12 w3-border-bottom ">
                       <div class="w3-cell w3-cell-middle">
                         Solicitações
@@ -99,7 +99,7 @@ Cores: #a81f2f #560d16 #72141f-->
                       </div>
                     </li>
                   </a>
-                  <a class="w3-bar" href="<?php echo base_url('adm/cadastro-pre-lista')?>">
+                  <a class="w3-bar" href="<?php echo base_url('adm/cadastro-pre-solicitacao')?>">
                     <li class="w3-cell-row w3-padding-12 w3-border-bottom ">
                       <div class="w3-cell w3-cell-middle">
                         Nova Solicitação
@@ -152,7 +152,7 @@ Cores: #a81f2f #560d16 #72141f-->
               <div class="w3-row-padding w3-margin-bottom w3-center">
                 <div class="w3-third">
                   <h6>Solicitações</h6>
-                  <a href="<?=base_url('adm/listas')?>">
+                  <a href="<?=base_url('adm/solicitacoes')?>">
                   <div class="w3-container w3-padding-16 w3-center w3-round" style="background-color: #72141f; color:#fff !important">
                     <i class="fa fa-list-alt w3-xlarge"></i>
                     <div class="w3-clear"></div>
@@ -160,7 +160,7 @@ Cores: #a81f2f #560d16 #72141f-->
                   </a>
                 </div>
                 <div class="w3-third">
-                  <a href="<?php echo base_url('adm/cadastro-pre-lista')?>">
+                  <a href="<?php echo base_url('adm/cadastro-pre-solicitacao')?>">
                     <h6>Nova Solicitação</h6>
                     <div class="w3-container w3-text-white w3-padding-16 w3-center w3-round" style="background-color: #72141f; color:#fff !important">
                       <i class="fa fa-share w3-xlarge"></i>

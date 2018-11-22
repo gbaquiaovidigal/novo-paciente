@@ -1,4 +1,4 @@
-Solicitaçao
+﻿Solicitaçao
 #Tela de usuario Comum
 - Nome Solicitacao
 - Descriçao
@@ -18,3 +18,8 @@ Solicitaçao
 - Autorizador
 - Data Autorizacao
 - fg_ativo
+
+
+#Erros
+Menu some quando acessado celular;
+Carregar foto perfil;
