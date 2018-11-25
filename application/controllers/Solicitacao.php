@@ -78,11 +78,7 @@ class Solicitacao extends CI_Controller {
 
         if (($this->session->userdata('logged')) and ($this->session->userdata('id_tipo_usuario') <= $nivel_user)) {
 
-            //$this->form_validation->set_rules('placa', 'Placa', 'required|min_length[7]|trim');
-
-            if ($this->form_validation->run() == FALSE) {
-
-                $sql = "SELECT id_solicitacao, nome_solicitacao, descricao, tipo_solicitacao, DATE_FORMAT(data_viagem ,'%d %b %Y') as data_viagem, 
+            $sql = "SELECT id_solicitacao, nome_solicitacao, descricao, tipo_solicitacao, DATE_FORMAT(data_viagem ,'%d %b %Y') as data_viagem, 
                       o.nome_cidade as origem, d.nome_cidade as destino, acompanhantes, status, horario_saida, m.nome as motorista, m.id_usuario as id_motorista, v.ds_veiculo, v.id_veiculo, 
                       su.nome as solicitante, au.nome as autorizador, DATE_FORMAT(data_autorizacao ,'%d %b %Y') as data_autorizacao, observacao
                     FROM solicitacao s
@@ -94,16 +90,31 @@ class Solicitacao extends CI_Controller {
                     LEFT JOIN usuario m ON (m.id_usuario = s.motorista)
                     WHERE s.fg_ativo = 1";
 
-                $data['dataForm'] = ''; //Campo pesqusia vazio
+            $data['dataForm'] = 3; //Campo pesqusia vazio
+            $this->form_validation->set_rules('status', 'Status', 'required');
 
-            } else {
-                $dataRegister = $this->input->post();
+            if ($this->form_validation->run() == TRUE) {
 
-                $sql = "SELECT id_veiculo, ds_veiculo, placa
-				FROM veiculo
-				WHERE fg_ativo = 1 and ds_veiculo like '%$dataRegister%' ORDER BY id_veiculo desc limit 10";
+                $dataRegister = $this->input->post('status');
+                //die(var_dump($dataRegister));
 
-                $data['dataForm'] = $dataRegister; //Campo pesquisa com o que foi pesquisado
+                if ($dataRegister != 3) {
+
+                    $sql = "SELECT id_solicitacao, nome_solicitacao, descricao, tipo_solicitacao, DATE_FORMAT(data_viagem ,'%d %b %Y') as data_viagem, 
+                      o.nome_cidade as origem, d.nome_cidade as destino, acompanhantes, status, horario_saida, m.nome as motorista, m.id_usuario as id_motorista, v.ds_veiculo, v.id_veiculo, 
+                      su.nome as solicitante, au.nome as autorizador, DATE_FORMAT(data_autorizacao ,'%d %b %Y') as data_autorizacao, observacao
+                    FROM solicitacao s
+                    INNER JOIN usuario su ON (su.id_usuario = s.solicitante)
+                    LEFT JOIN usuario au ON (au.id_usuario = s.autorizador)
+                    INNER JOIN cidade o ON (o.id_cidade = s.origem)
+                    INNER JOIN cidade d ON (d.id_cidade = s.destino)
+                    LEFT JOIN veiculo v ON (v.id_veiculo = s.veiculo)
+                    LEFT JOIN usuario m ON (m.id_usuario = s.motorista)
+                    WHERE s.fg_ativo = 1 AND s.status = $dataRegister";
+
+                    $data['dataForm'] = $dataRegister; //Campo pesquisa com o que foi pesquisado
+                }
+
             }
 
             //consultando
