@@ -26,6 +26,7 @@ $route['adm/remover-usuario'] = 'User/RemoverUser';
 #Solicitacao
 $route['adm/solicitacoes'] = 'Solicitacao/Listar';
 $route['adm/cadastro-pre-solicitacao'] = 'Solicitacao/RegisterPreSolicitacao';
+$route['adm/solicitacoes/aprovar'] = 'Solicitacao/AprovarSolicitacao';
 
 $route['adm/listas'] = 'Lista/Listar';
 $route['adm/cadastro-lista'] = 'Lista/Register';
