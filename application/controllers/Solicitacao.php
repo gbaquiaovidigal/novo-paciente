@@ -16,8 +16,13 @@ class Solicitacao extends CI_Controller {
 
             $data['success'] = null;
 
-            $this->form_validation->set_rules('veiculo', 'Descriçao do veículo', 'required|min_length[4]|trim');
-            $this->form_validation->set_rules('placa', 'Placa', 'required|min_length[7]|trim');
+            $this->form_validation->set_rules('nome', 'Nome da Solicitação', 'required|min_length[4]|trim');
+            $this->form_validation->set_rules('descricao', 'Descrição da Solicitação', 'required|min_length[4]|trim');
+            $this->form_validation->set_rules('tipoSolicitacao', 'Tipo da Solicitação', 'required|trim');
+            //$this->form_validation->set_rules('dataViagem', 'Data da Viagem', 'required|trim');
+            //$this->form_validation->set_rules('origem', 'Local de origem', 'required|min_length[4]|trim');
+            //$this->form_validation->set_rules('destino', 'Local de destino', 'required|min_length[4]|trim');
+            $this->form_validation->set_rules('acompanhantes', 'Número de Acompanhantes', 'required' );
 
             if ($this->form_validation->run() == FALSE) {
                 $data['error'] = validation_errors();
@@ -32,23 +37,25 @@ class Solicitacao extends CI_Controller {
                 $dataRegister = $this->input->post();
 
                 $dataModel = array(
-                    'ds_veiculo' => $dataRegister['nome'],
-                    'ds_veiculo' => $dataRegister['veiculo'],
-                    'ds_veiculo' => $dataRegister['veiculo'],
-                    'ds_veiculo' => $dataRegister['veiculo'],
-                    'placa' => $dataRegister['placa']
+                    'nome_solicitacao' => $dataRegister['nome'],
+                    'descricao' => $dataRegister['descricao'],
+                    'tipo_solicitacao' => $dataRegister['tipoSolicitacao'],
+                    //'data_viagem' => $dataRegister['dataViagem'],
+                    //'origem' => $dataRegister['origem'],
+                    //'destino' => $dataRegister['destino'],
+                    'acompanhantes' => $dataRegister['acompanhantes'],
                 );
 
 
-                $res = $this->Crud_model->Insert('veiculo', $dataModel);
+                $res = $this->Crud_model->Insert('solicitacao', $dataModel);
 
                 if ($res) {
                     $data['error'] = null;
                     // os dados voltam vazios novamente depois da confirmação
-                    $data['dataRegister'] = array('placa' => '', 'veiculo' => '');
-                    $data['success'] = "Veículo inserida com sucesso";
+                    $data['dataRegister'] = array('nome' => '', 'dataViagem' => '', 'tipoSolicitacao' => '', 'acompanhantes' => 0, 'descricao' => '');
+                    $data['success'] = "Solicitação enviada com sucesso";
                 } else {
-                    $data['error'] = "Não foi possivel inserir a veiculo";
+                    $data['error'] = "Não foi possivel criar a solicitação";
                 }
             }
 

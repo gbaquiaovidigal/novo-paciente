@@ -22,7 +22,7 @@
                             <hr>
                             <div class="alert alert-success" role="alert"><?=$success?></div>
                         <?php endif; ?>
-                        <form method="POST" action="<?=base_url('adm/cadastro-veiculo')?>">
+                        <form method="POST" action="<?=base_url('adm/cadastro-pre-solicitacao')?>">
                             <hr>
                             <div class="row">
                                 <div class="col-md-6">
