@@ -22,22 +22,24 @@ class Solicitacao extends CI_Controller {
             if ($this->form_validation->run() == FALSE) {
                 $data['error'] = validation_errors();
                 if ($data['error'] == NULL) {
-                    /* Se a validação do dados ainda nao ocorreu, entao o que retorna
-                    no formulario é vazio,*/
-                    $data['dataRegister'] = array('nome' => '', 'placa' => '');
+
+                    $data['dataRegister'] = array('nome' => '', 'dataViagem' => '', 'acompanhantes' => 0, 'descricao' => '');
                 } else {
 
                     $data['dataRegister'] = $this->input->post();
-                    //die(var_dump($data['dataRegister']));
-                    /* Se ocorreu, os dados retorna para os campos, para o usuario nao precisar digitar
-                    tudo novamente no formulario*/
                 }
             } else {
                 $dataRegister = $this->input->post();
 
                 $dataModel = array(
+                    'ds_veiculo' => $dataRegister['nome'],
                     'ds_veiculo' => $dataRegister['veiculo'],
-                    'placa' => $dataRegister['placa']);
+                    'ds_veiculo' => $dataRegister['veiculo'],
+                    'ds_veiculo' => $dataRegister['veiculo'],
+                    'placa' => $dataRegister['placa']
+                );
+
+
                 $res = $this->Crud_model->Insert('veiculo', $dataModel);
 
                 if ($res) {

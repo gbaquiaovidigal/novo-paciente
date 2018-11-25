@@ -30,11 +30,11 @@
                                     <input type="text" class="form-control" name="nome" id="nome" value="<?=$dataRegister['nome']?>" placeholder="Insira o nome da Solicitação" required>
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="Veiculo"><strong>Tipo Solicitação</strong></label>
-                                    <select class="form-control">
-                                        <option value="0">Pendentes</option>
-                                        <option value="1">Aprovados</option>
-                                        <option value="2">Reprovados</option>
+                                    <label for="tipoSolicitacao"><strong>Tipo Solicitação</strong></label>
+                                    <select class="form-control" id="tipoSolicitacao" name="tipoSolicitacao">
+                                        <option value="Consulta Médica">Consulta Médica</option>
+                                        <option value="Retorno Médico">Retorno Médico</option>
+                                        <option value="Cirurgia">Cirurgia</option>
                                     </select>
                                 </div>
                             </div>
@@ -42,14 +42,14 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <label for=""><strong>Descrição</strong></label>
-                                    <textarea class="form-control" placeholder="Descrição da solicitação"></textarea>
+                                    <textarea class="form-control" placeholder="Descrição da solicitação" name="descricao"><?=$dataRegister['descricao']?></textarea>
                                 </div>
                             </div>
                             <br>
                             <div class="row">
                                 <div class="col-md-6">
                                     <label for=""><strong>Origem</strong></label>
-                                    <select class="form-control selectpicker" data-size="3" id="origem" name="origem" data-style="" data-live-search="true" title="Selecione a cidade de Origem" required>
+                                    <select class="form-control selectpicker" data-size="3" id="origem" name="origem" data-live-search="true" title="Selecione a cidade de Origem" required>
                                         <?php foreach ($cidades as $origen): ?>
                                         <option value="<?=$origen->id_cidade?>"><?=$origen->nome_cidade?></option>
                                         <?php endforeach; ?>
@@ -68,11 +68,11 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <label for=""><strong>Acompanhantes</strong></label>
-                                    <input class="form-control" type="number" value="0">
+                                    <input class="form-control" type="number" value="<?=$dataRegister['acompanhantes']?>">
                                 </div>
                                 <div class="col-md-6">
                                     <label for=""><strong>Data Viagem</strong></label>
-                                    <input class="form-control" type="date">
+                                    <input class="form-control" type="date" value="<?=$dataRegister['dataViagem']?>">
                                 </div>
                             </div>
                             <br>
