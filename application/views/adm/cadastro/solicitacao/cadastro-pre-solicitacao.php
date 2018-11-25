@@ -49,7 +49,7 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <label for=""><strong>Origem</strong></label>
-                                    <select class="form-control selectpicker" data-size="3" id="origem" name="origem" data-live-search="true" title="Selecione a cidade de Origem" required>
+                                    <select class="form-control selectpicker" data-size="3" id="origem" name="origem" data-style="" data-live-search="true" title="Selecione a cidade de Origem" required>
                                         <?php foreach ($cidades as $origen): ?>
                                         <option value="<?=$origen->id_cidade?>"><?=$origen->nome_cidade?></option>
                                         <?php endforeach; ?>
@@ -76,7 +76,7 @@
                                 </div>
                             </div>
                             <br>
-                            <a href="<?=base_url('adm/veiculo');?>" class="btn btn-lg" style="background-color: #72141f; color:#fff !important">Cancelar</a>
+                            <a href="<?=base_url('profile');?>" class="btn btn-lg" style="background-color: #72141f; color:#fff !important">Cancelar</a>
                             <button class="btn btn-lg" style="background-color: #72141f; color:#fff !important">Solicitar</button>
 
                         </form>
