@@ -9,7 +9,7 @@
                         <h2 class="text-center"><i class="fa fa-list" style="color: #560d16 !important"></i> Solicitações</h2>
                         <br>
                         <?php if ($this->input->get('cod') == 1): ?>
-                            <div class="alert alert-success text-center" role="alert">Solicatação editado com sucesso</div>
+                            <div class="alert alert-success text-center" role="alert">Solicatação enviada com sucesso</div>
                             <hr>
                         <?php elseif ($this->input->get('cod') == 2): ?>
                             <div class="alert alert-success text-center" role="alert">Veículo Removido com sucesso</div>
@@ -21,11 +21,8 @@
                                     <label>&nbsp;</label>
                                     <a href="<?=base_url('profile#menu')?>" class="btn btn-block" style="background-color: #72141f; color:#fff !important"><i class="fa fa-chevron-left"></i> Voltar</a>
                                 </div>
-                                <div class="col-md-6">
-                                    <label>Solicitante</label>
-                                    <input type="text" class="form-control" alt="lista-veiculos" placeholder="Informe o solicitante" name="veiculo" value="<?=$dataForm?>" autofocus>
-                                </div>
-                                <div class="col-md-4">
+                                <div class="col-md-2"></div>
+                                <div class="col-md-6 text-center">
                                     <label>Status</label>
                                     <select class="form-control">
                                         <option value="0">Pendentes</option>
@@ -53,8 +50,7 @@
                             <tbody>
                             <?php
                             if ($solicitacoes):
-                                foreach ($solicitacoes as $solicitacao):
-                                    ?>
+                                foreach ($solicitacoes as $solicitacao): ?>
                                     <tr>
                                         <td><?=$solicitacao->nome_solicitacao;?></td>
                                         <td><?=$solicitacao->tipo_solicitacao;?></td>
@@ -62,6 +58,8 @@
                                         <td><?=$solicitacao->solicitante;?></td>
                                         <td><button class="btn btn-default"><i class="fa fa-plus" title="Visualizar Mais"></i></button></td>
                                     </tr>
+                                    <form action="<?=base_url('adm/solicitacoes/aprovar')?>" method="post">
+                                        <input type="hidden" name="id_solicitacao" value="<?=$solicitacao->id_solicitacao;?>">
                                     <tr>
                                         <td colspan="5">
                                             <table class="table table-bordered">
@@ -83,15 +81,31 @@
                                                 </tr>
                                                 <tr>
                                                     <td>Horario Saída</td>
-                                                    <td><?=$solicitacao->horario_saida;?></td>
+                                                    <td><input class="form-control" type="time" name="horario_saida" value="<?=$solicitacao->horario_saida;?>" required></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Motorista</td>
-                                                    <td><?=$solicitacao->motorista;?></td>
+                                                    <td>
+                                                        <select class="form-control" name="motorista" required>
+                                                            <option value="0">Nenhum selecionado</option>
+                                                        <?php foreach ($motoristas as $motorista):?>
+                                                            <option value="<?=$motorista->id_usuario?>" <?=$motorista->id_usuario == $solicitacao->id_motorista ? "selected" : ""?>>
+                                                                <?=$motorista->nome?>
+                                                            </option>
+                                                        <?php endforeach; ?>
+                                                        </select>
+                                                    </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Veículo</td>
-                                                    <td><?=$solicitacao->ds_veiculo;?></td>
+                                                    <td>
+                                                        <select class="form-control" name="veiculo" required>
+                                                            <option value="0">Nenhum selecionado</option>
+                                                            <?php foreach ($veiculos as $veiculo):?>
+                                                                <option value="<?=$veiculo->id_veiculo?>" <?=$veiculo->id_veiculo == $solicitacao->id_veiculo ? "selected" : ""?>><?=$veiculo->ds_veiculo?></option>
+                                                            <?php endforeach; ?>
+                                                        </select>
+                                                    </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Autorizador</td>
@@ -103,17 +117,28 @@
                                                 </tr>
                                                 <tr>
                                                     <td>Status</td>
-                                                    <td><?=$solicitacao->status == 0 ? "Pendente" : ($solicitacao->status == 1 ? "Aprovado" : "Não Aprovado")?></td>
+                                                    <td>
+                                                        <select class="form-control" name="status" required>
+                                                            <option value="0" <?=$solicitacao->status == 0 ? "selected" : ""?>>Pendente</option>
+                                                            <option value="1" <?=$solicitacao->status == 1 ? "selected" : ""?>>Aprovado</option>
+                                                            <option value="2" <?=$solicitacao->status == 2 ? "selected" : ""?>>Reprovado</option>
+                                                        </select>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Observação</td>
+                                                    <td><textarea class="form-control" name="observacao" id="observacao" placeholder="Informe o motivo de reprovação ou aprovação (Opcional)" rows="4"><?=$solicitacao->observacao?></textarea></td>
                                                 </tr>
                                             </table>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td colspan="5">
-                                            <button class="btn" style="background-color: #72141f; color:#fff !important">Reprovar</button>
-                                            <button class="btn" style="background-color: #72141f; color:#fff !important">Aprovar</button>
+                                            <button class="btn" type="submit" style="background-color: #72141f; color:#fff !important">Cancelar</button>
+                                            <button class="btn" type="submit" style="background-color: #72141f; color:#fff !important">Enviar</button>
                                         </td>
                                     </tr>
+                                </form>
                                 <?php endforeach;
                             else:
                                 ?>

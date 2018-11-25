@@ -78,12 +78,13 @@ class Solicitacao extends CI_Controller {
 
         if (($this->session->userdata('logged')) and ($this->session->userdata('id_tipo_usuario') <= $nivel_user)) {
 
-            #veiculos
-            $this->form_validation->set_rules('placa', 'Placa', 'required|min_length[7]|trim');
+            //$this->form_validation->set_rules('placa', 'Placa', 'required|min_length[7]|trim');
 
             if ($this->form_validation->run() == FALSE) {
 
-                $sql = "SELECT id_solicitacao, nome_solicitacao, descricao, tipo_solicitacao, DATE_FORMAT(data_viagem ,'%d %b %Y') as data_viagem, o.nome_cidade as origem, d.nome_cidade as destino, acompanhantes, status, horario_saida, m.nome as motorista, v.ds_veiculo, su.nome as solicitante, au.nome as autorizador, data_autorizacao
+                $sql = "SELECT id_solicitacao, nome_solicitacao, descricao, tipo_solicitacao, DATE_FORMAT(data_viagem ,'%d %b %Y') as data_viagem, 
+                      o.nome_cidade as origem, d.nome_cidade as destino, acompanhantes, status, horario_saida, m.nome as motorista, m.id_usuario as id_motorista, v.ds_veiculo, v.id_veiculo, 
+                      su.nome as solicitante, au.nome as autorizador, DATE_FORMAT(data_autorizacao ,'%d %b %Y') as data_autorizacao, observacao
                     FROM solicitacao s
                     INNER JOIN usuario su ON (su.id_usuario = s.solicitante)
                     LEFT JOIN usuario au ON (au.id_usuario = s.autorizador)
@@ -96,7 +97,7 @@ class Solicitacao extends CI_Controller {
                 $data['dataForm'] = ''; //Campo pesqusia vazio
 
             } else {
-                $dataRegister = $this->input->post('placa');
+                $dataRegister = $this->input->post();
 
                 $sql = "SELECT id_veiculo, ds_veiculo, placa
 				FROM veiculo
@@ -107,6 +108,8 @@ class Solicitacao extends CI_Controller {
 
             //consultando
             $data['solicitacoes'] = $this->Crud_model->Query($sql);
+            $data['motoristas'] = $this->Crud_model->Query("SELECT * FROM usuario WHERE id_tipo_usuario = 3 AND fg_ativo = 1");
+            $data['veiculos'] = $this->Crud_model->Query("SELECT * FROM veiculo WHERE fg_ativo = 1");
 
             $header['title'] = "Paciente Móvel | Solicitações";
             $this->load->view('adm/commons/header', $header);
@@ -117,6 +120,57 @@ class Solicitacao extends CI_Controller {
             redirect(base_url('login'));
         }
 
+    }
+
+    public function AprovarSolicitacao() {
+
+        $nivel_user = 1; //Nivel requirido para visualizar a pagina
+
+        if (($this->session->userdata('logged')) and ($this->session->userdata('id_tipo_usuario') <= $nivel_user)) {
+
+            if ($this->input->post()) {
+
+                $dataRegister = $this->input->post();
+
+
+                $id_solicitacao = $dataRegister['id_solicitacao'];
+                $horario_saida = $dataRegister['horario_saida'];
+                $motorista = $dataRegister['motorista'];
+                $veiculo = $dataRegister['veiculo'];
+                $status = $dataRegister['status'];
+                $observacao = $dataRegister['observacao'];
+
+                $par = array('id_solicitacao' => $id_solicitacao);
+
+                if ($status == 1) {
+                    $dataModel = array(
+                        'horario_saida' => $horario_saida,
+                        'motorista' => $motorista,
+                        'veiculo' => $veiculo,
+                        'status' => $status,
+                        'observacao' => $observacao,
+                        'data_autorizacao' => date("Y-m-d H:i:s"),
+                        'autorizador' => $this->session->userdata('id_usuario')
+                    );
+
+                } else {
+                    $dataModel = array(
+                        'status' => $status,
+                        'observacao' => $observacao,
+                        'data_autorizacao' => date("Y-m-d H:i:s"),
+                        'autorizador' => $this->session->userdata('id_usuario')
+                    );
+                }
+
+                $this->Crud_model->Update('solicitacao', $dataModel, $par);
+
+            }
+
+            redirect(base_url('adm/solicitacoes?cod=1'));
+
+        } else {
+            redirect(base_url('login'));
+        }
     }
     
 }
