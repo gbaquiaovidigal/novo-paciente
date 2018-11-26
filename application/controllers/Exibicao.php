@@ -161,11 +161,18 @@ class Exibicao extends CI_Controller {
         $data['pendentes'] = $this->Crud_model->Query($sql);
 
 
-        $sql = "SELECT su.nome, s.tipo_solicitacao, DATE_FORMAT(s.data_viagem ,'%d %b %Y') as data_viagem
-            FROM solicitacao s 
-            INNER JOIN usuario su ON (su.id_usuario = s.solicitante)
-            WHERE s.status = 0 AND su.id_usuario = $id_user
-            ORDER BY s.data_solicitacao desc";
+        $sql = "SELECT id_solicitacao, nome_solicitacao, descricao, tipo_solicitacao, DATE_FORMAT(data_viagem ,'%d %b %Y') as data_viagem, 
+                      o.nome_cidade as origem, d.nome_cidade as destino, acompanhantes, status, horario_saida, m.nome as motorista, m.id_usuario as id_motorista, v.ds_veiculo, v.id_veiculo, 
+                      su.nome as solicitante, au.nome as autorizador, DATE_FORMAT(data_autorizacao ,'%d %b %Y') as data_autorizacao, observacao
+                    FROM solicitacao s
+                    INNER JOIN usuario su ON (su.id_usuario = s.solicitante)
+                    LEFT JOIN usuario au ON (au.id_usuario = s.autorizador)
+                    INNER JOIN cidade o ON (o.id_cidade = s.origem)
+                    INNER JOIN cidade d ON (d.id_cidade = s.destino)
+                    LEFT JOIN veiculo v ON (v.id_veiculo = s.veiculo)
+                    LEFT JOIN usuario m ON (m.id_usuario = s.motorista)
+                    WHERE s.fg_ativo = 1 AND s.solicitante = $id_user";
+                    
         $data['solicitacoes'] = $this->Crud_model->Query($sql);
 
 		$this->load->view('adm/user/profile', $data);

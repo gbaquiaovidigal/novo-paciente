@@ -42,14 +42,10 @@ Cores: #a81f2f #560d16 #72141f-->
       <a href="<?=base_url('logout')?>" class="w3-bar-item w3-button">Sair</a>
     </div>
   </div>
-
-
   <div class="w3-dropdown-hover w3-hide-small">
-  <?php if ($permissao == 1): ?>
     <button class="w3-button w3-padding-large" title="Notifications"><i class="fa fa-bell"></i>
       <span class="w3-badge w3-right w3-small w3-white"><?=$notificacoes ? sizeof($notificacoes) : ""?></span>
     </button>
-    <?php endif; ?>
     <div class="w3-dropdown-content w3-card w3-bar-block">
         <?php
             if ($notificacoes) {
@@ -66,7 +62,6 @@ Cores: #a81f2f #560d16 #72141f-->
   
  </div>
 </div>
-
 
 <!-- Navbar on small screens -->
 <div id="navDemo" class="w3-bar-block w3-hide w3-hide-large w3-hide-medium w3-large" style="background-color: #560d16; color:#fff !important">
@@ -92,7 +87,6 @@ Cores: #a81f2f #560d16 #72141f-->
         </div>
       </div>
       <br>
-
       <?php if ($permissao == 1): ?>
       <div class="w3-margin-bottom">
         <div class="w3-col m12">
@@ -150,46 +144,6 @@ Cores: #a81f2f #560d16 #72141f-->
         </div>
       </div>
       <?php endif; ?>
-
-      <?php if ($permissao == 2): ?>
-      <div class="w3-margin-bottom">
-        <div class="w3-col m12">
-          <div class="w3-card w3-round w3-white">
-            <div class="w3-container w3-padding">
-              <h6 class="w3-opacity w3-center"><i class="fa fa-th"></i> Menu</h6>
-              <hr>
-              <div class="w3-row-padding w3-margin-bottom">
-                <ul class="w3-ul">
-                  <!--
-                  <a class="w3-bar" href="<?php echo base_url('adm/solicitacoes')?>">
-                    <li class="w3-cell-row w3-padding-12 w3-border-bottom ">
-                      <div class="w3-cell w3-cell-middle">
-                        Solicitações
-                      </div>
-                      <div class="w3-cell w3-cell-middle w3-margin-right w3-right">
-                        <i class="fa fa-chevron-right"></i>
-                      </div>
-                    </li>
-                  </a> -->
-                  <a class="w3-bar" href="<?php echo base_url('adm/cadastro-pre-solicitacao')?>">
-                    <li class="w3-cell-row w3-padding-12 w3-border-bottom ">
-                      <div class="w3-cell w3-cell-middle">
-                        Nova Solicitação
-                      </div>
-                      <div class="w3-cell w3-cell-middle w3-margin-right w3-right" >
-                        <i class="fa fa-chevron-right"></i>
-                      </div>
-                    </li>
-                  </a>
-                 
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <?php endif; ?>
-
     <!-- End Left Column -->
     </div>
     <!-- Middle Column -->
@@ -221,17 +175,6 @@ Cores: #a81f2f #560d16 #72141f-->
                     </div>
                   </a>
                 </div>
-                <!--
-                <div class="w3-quarter">
-                  <a href="<?=base_url('adm/regioes')?>">
-                    <h6>Regiões</h6>
-                    <div class="w3-container w3-text-white w3-padding-16 w3-center w3-round" style="background-color: #72141f; color:#fff !important">
-                      <i class="fa fa-map-signs w3-xlarge"></i>
-                      <div class="w3-clear"></div>
-                    </div>
-                  </a>
-                </div>
-                -->
                 <div class="w3-third">
                   <a href="<?=base_url('adm/usuarios')?>">
                     <h6>Usuários</h6>
@@ -286,20 +229,80 @@ Cores: #a81f2f #560d16 #72141f-->
         <h4 class="w3-opacity w3-center">Minhas Solicitações</h4>
         <hr>
           <?php if ($solicitacoes): ?>
-              <table class="w3-table w3-striped w3-white">
+              <table class="w3-table w3-bordered w3-white w3-margin-bottom">
                   <thead class="" style="background-color: #72141f; color:#fff !important">
-                  <th class="" style="width: 20%">Solicitante</th>
-                  <th style="width: 30%">Tipo</th>
-                  <th class="" style="width: 15%">Data Viagem</th>
+                  <th>Tipo</th>
+                  <th>Status</th>
+                  <th style="text-align: center;">Visualizar</th>
                   </thead>
                   <tbody style="min-height: 40vh">
-                  <?php foreach ($solicitacoes as $solicitacao): ?>
+                  <?php 
+                  $qtd = 1;
+                  foreach ($solicitacoes as $solicitacao): ?>
                       <tr>
-                          <td style="vertical-align: middle;"><?=$solicitacao->nome?></td>
                           <td style="vertical-align: middle;"><?=$solicitacao->tipo_solicitacao?></td>
-                          <td style="vertical-align: middle;"><?=$solicitacao->data_viagem?></td>
+                          <td style="vertical-align: middle;"><?=$solicitacao->status == 0 ? "Pendente" : ($solicitacao->status == 1 ? "Aprovado" : "Reprovado") ?></td>
+                          <td style="vertical-align: middle;text-align: center;">
+                            <button class="w3-button w3-round" onclick="verMais(<?=$qtd?>)"><i class="fa fa-plus"></i></button>
+                          </td>
                       </tr>
-                  <?php endforeach; ?>
+                      <tr id="form<?=$qtd?>" style="display: none">
+                        <td colspan="4">
+                          <table class="w3-table w3-striped w3-white w3-border">
+                            <tr>
+                                <td class="w3-border" style="width: 30%">Solicitante</td>
+                                <td class="w3-border"><?=$solicitacao->solicitante;?></td>
+                            </tr>
+                            <tr>
+                                <td class="w3-border">Solicitação</td>
+                                <td class="w3-border"><?=$solicitacao->nome_solicitacao;?></td>
+                            </tr>
+                            <tr>
+                                <td class="w3-border">Descrição</td>
+                                <td class="w3-border"><?=$solicitacao->descricao;?></td>
+                            </tr>
+                            <tr>
+                                <td class="w3-border">Origem</td>
+                                <td class="w3-border"><?=$solicitacao->origem;?></td>
+                            </tr>
+                            <tr>
+                                <td class="w3-border">Destino</td>
+                                <td class="w3-border"><?=$solicitacao->destino;?></td>
+                            </tr>
+                            <tr>
+                                <td class="w3-border">Acompanhantes</td>
+                                <td class="w3-border"><?=$solicitacao->acompanhantes;?></td>
+                            </tr>
+                            <tr>
+                                <td class="w3-border">Horario Saída</td>
+                                <td class="w3-border"><?=$solicitacao->horario_saida;?></td>
+                            </tr>
+                            <tr>
+                                <td class="w3-border">Motorista</td>
+                                <td class="w3-border"><?=$solicitacao->motorista;?></td>
+                            </tr>
+                            <tr>
+                                <td class="w3-border">Veículo</td>
+                                <td class="w3-border"><?=$solicitacao->ds_veiculo;?></td>
+                            </tr>
+                            <tr>
+                                <td class="w3-border">Autorizador</td>
+                                <td class="w3-border"><?=$solicitacao->autorizador;?></td>
+                            </tr>
+                            <tr>
+                                <td class="w3-border">Data Autorização</td>
+                                <td class="w3-border"><?=$solicitacao->data_autorizacao;?></td>
+                            </tr>
+                            <tr>
+                                <td class="w3-border">Observação</td>
+                                <td class="w3-border"><?=$solicitacao->observacao;?></td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                  <?php 
+                  $qtd++;
+                  endforeach; ?>
                   </tbody>
               </table>
           <?php else: ?>
@@ -364,16 +367,16 @@ Cores: #a81f2f #560d16 #72141f-->
 </footer>
  
 <script>
-// Accordion
-function myFunction(id) {
-    var x = document.getElementById(id);
-    if (x.className.indexOf("w3-show") == -1) {
-        x.className += " w3-show";
-        x.previousElementSibling.className += "style="background-color: #560d16; color:#fff !important";
-    } else { 
-        x.className = x.className.replace("w3-show", "");
-        x.previousElementSibling.className = 
-        x.previousElementSibling.className.replace(" style="background-color: #560d16; color:#fff !important", "");
+
+
+function verMais(qtd) {
+  console.log(qtd);
+    var form = document.getElementById("form" + qtd);
+
+    if (form.getAttribute("style") === "display: none") {
+        form.setAttribute("style","");
+    } else {
+        form.setAttribute("style","display: none");
     }
 }
 
