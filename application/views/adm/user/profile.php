@@ -44,12 +44,19 @@ Cores: #a81f2f #560d16 #72141f-->
   </div>
   <div class="w3-dropdown-hover w3-hide-small">
     <button class="w3-button w3-padding-large" title="Notifications"><i class="fa fa-bell"></i>
-      <span class="w3-badge w3-right w3-small w3-green"></span>
-    </button>     
+      <span class="w3-badge w3-right w3-small w3-white"><?=$notificacoes ? sizeof($notificacoes) : ""?></span>
+    </button>
     <div class="w3-dropdown-content w3-card w3-bar-block">
-      <a href="#listas-encaminhadas" class="w3-bar-item w3-button">
-        Não há nenhuma solicitações pendentes
-      </a>
+        <?php
+            if ($notificacoes) {
+                foreach ($notificacoes as $notificacao): ?>
+                    <a href="adm/solicitacoes" class="w3-bar-item w3-button">
+                        <?=$notificacao->nome?> está com uma solicitação pendente
+                    </a>
+                <?php endforeach;
+            } else { ?>
+                <div class="w3-bar-item">Não há nenhuma solicitações pendentes</div>
+        <?php } ?>
     </div>
   </div>
   
@@ -198,126 +205,68 @@ Cores: #a81f2f #560d16 #72141f-->
 
       <div class="w3-row-padding">
         <div class="w3-col m12">
-      <div class="w3-card w3-white w3-round w3-padding"><br>
-        <h4 class="w3-opacity w3-center">Fila de Espera - Todos Usuários</h4>
-        <hr>
-        <?php if (false): ?>
-        <table class="w3-table w3-striped w3-white">
-          <thead class="" style="background-color: #72141f; color:#fff !important">
-            <th class="" style="width: 20%">Enviado por</th>
-            <th style="width: 30%">Região</th>
-            <th class="" style="width: 15%">Mês</th>
-            <th class="" style="width: 15%">PDF da Lista</th>
-            <th class="w3-center" style="width: 20%">Cadastrar Solicitação</th>
-          </thead>
-          <tbody style="min-height: 40vh">
-
-            <tr>
-              <td style="vertical-align: middle;"></td>
-              <td style="vertical-align: middle;"></td>
-              <td style="vertical-align: middle;"></td>
-              <td style="vertical-align: middle;">
-                <a href="" class="w3-btn w3-blue w3-block w3-round w3-small" title="Cadastrar lista" target="_blank">
-                  Visualizar
-                </a>
-              </td>
-              <td>
-                <a href="" class="w3-btn w3-blue w3-block w3-round w3-small" title="Cadastrar lista">
-                  Cadastrar
-                </a>
-              </td>
-            </tr>
-
-          </tbody>
-        </table>
-        <?php else: ?>
-          <div class="w3-padding-16 w3-center">
-            <p class="w3-opacity">Não há nenhuma solicitação pendente :)</p>
+          <div class="w3-card w3-white w3-round w3-padding"><br>
+            <h4 class="w3-opacity w3-center">Fila de Espera - Todos Usuários</h4>
+            <hr>
+            <?php if ($pendentes): ?>
+            <table class="w3-table w3-striped w3-white">
+              <thead class="" style="background-color: #72141f; color:#fff !important">
+                <th class="" style="width: 20%">Solicitante</th>
+                <th style="width: 30%">Tipo</th>
+                <th class="" style="width: 15%">Data Viagem</th>
+              </thead>
+              <tbody style="min-height: 40vh">
+                <?php foreach ($pendentes as $pendente): ?>
+                <tr>
+                  <td style="vertical-align: middle;"><?=$pendente->nome?></td>
+                  <td style="vertical-align: middle;"><?=$pendente->tipo_solicitacao?></td>
+                  <td style="vertical-align: middle;"><?=$pendente->data_viagem?></td>
+                </tr>
+                <?php endforeach; ?>
+              </tbody>
+            </table>
+            <?php else: ?>
+              <div class="w3-padding-16 w3-center">
+                <p class="w3-opacity">Não há nenhuma solicitação pendente :)</p>
+              </div>
+            <?php endif; ?>
+            <br>
           </div>
-        <?php endif; ?>
-        <br>
+        </div>
       </div>
-    </div>
-  </div>
-
-      <a name="listas-encaminhadas"></a>
-      <div class="w3-row-padding w3-margin-top" id="listas-encaminhadas">
-        <div class="w3-col m12">
-      <div class="w3-card w3-white w3-round w3-padding"><br>
-        <h4 class="w3-opacity w3-center">Solicitações Encaminhadas para mim</h4>
-        <hr>
-        <?php if (false): ?>
-        <table class="w3-table w3-striped w3-white">
-          <thead class="" style="background-color: #72141f; color:#fff !important">
-            <th class="" style="width: 20%">Enviado por</th>
-            <th style="width: 30%">Região</th>
-            <th class="" style="width: 15%">Mês</th>
-            <th class="" style="width: 15%">PDF da Lista</th>
-            <th class="w3-center" style="width: 20%">Cadastrar Solicitação</th>
-          </thead>
-          <tbody style="min-height: 40vh">
-            <?php foreach ($listasPendentesUser as $lista): ?>
-            <tr>
-              <td style="vertical-align: middle;"><?php echo $lista->remetente ?></td>
-              <td style="vertical-align: middle;"><?php echo $lista->nome_regiao ?></td>
-              <td style="vertical-align: middle;"><?php echo $lista->nome_mes ?></td>
-              <td style="vertical-align: middle;">
-                <a href="<?php echo base_url('uploads/listas/'.$lista->file_lista) ?>" class="w3-btn w3-blue w3-block w3-round w3-small" title="Cadastrar lista" target="_blank">
-                  Visualizar
-                </a>
-              </td>
-              <td>
-                <a href="<?php echo base_url('adm/gerar-lista?id='.$lista->id_pre_lista) ?>" class="w3-btn w3-blue w3-block w3-round w3-small" title="Cadastrar lista">
-                  Cadastrar
-                </a>
-              </td>
-            </tr>
-            <?php endforeach ?>
-          </tbody>
-        </table>
-        <?php else: ?> 
-          <div class="w3-padding-16 w3-center">
-            <p class="w3-opacity">Não há nenhuma Solicitação encaminhada :)</p>
-          </div>
-        <?php endif; ?>
-        <br>
-      </div>
-    </div>
-  </div>
 
       
       <div class="w3-container w3-card w3-white w3-round w3-margin w3-padding"><br>
         <h4 class="w3-opacity w3-center">Minhas Solicitações</h4>
         <hr>
-        <?php if (false): ?>
-        <table class="w3-table w3-striped w3-white">
-          <thead class="" style="background-color: #560d16; color:#fff !important">
-            <th style="width: 60%">Região</th>
-            <th class="" style="width: 30%">Mês</th>
-            <th style="width: 10%" class="w3-center">Acessar</th>
-          </thead>
-          <tbody style="min-height: 40vh">
-            <?php foreach ($listas as $lista): ?>
-            <tr>
-              <td style="vertical-align: middle;"><?php echo $lista->nome_regiao ?></td>
-              <td style="vertical-align: middle;"><?php echo $lista->nome_mes ?></td>
-              <td><a href="<?php echo base_url('adm/lista-inserir?id='.$lista->id_lista) ?>" class="w3-btn w3-round w3-small" style="background-color: #72141f; color:#fff !important"><i class="fa fa-external-link"></i> Acessar</a></td>
-            </tr>
-            <?php 
-            endforeach;?>
-          </tbody>
-        </table>
-        <?php else: ?> 
-          <div class="w3-padding-32 w3-center">
-            <p class="w3-opacity">Nenhuma Solicitação Cadastrada :)</p>
-          </div>
-        <?php endif; ?>
+          <?php if ($solicitacoes): ?>
+              <table class="w3-table w3-striped w3-white">
+                  <thead class="" style="background-color: #72141f; color:#fff !important">
+                  <th class="" style="width: 20%">Solicitante</th>
+                  <th style="width: 30%">Tipo</th>
+                  <th class="" style="width: 15%">Data Viagem</th>
+                  </thead>
+                  <tbody style="min-height: 40vh">
+                  <?php foreach ($solicitacoes as $solicitacao): ?>
+                      <tr>
+                          <td style="vertical-align: middle;"><?=$solicitacao->nome?></td>
+                          <td style="vertical-align: middle;"><?=$solicitacao->tipo_solicitacao?></td>
+                          <td style="vertical-align: middle;"><?=$solicitacao->data_viagem?></td>
+                      </tr>
+                  <?php endforeach; ?>
+                  </tbody>
+              </table>
+          <?php else: ?>
+              <div class="w3-padding-16 w3-center">
+                  <p class="w3-opacity">Nenhuma solicitação cadastrada :)</p>
+              </div>
+          <?php endif; ?>
         <?php if ($permissao == 1): ?>
           <a href="<?php echo base_url('adm/solicitacoes') ?>"><h6 class="w3-center w3-padding-16 w3-margin-right w3-text-theme">Todas as solicitações
         <?php endif ?>
         </h6></a>
       </div>
-      
+
 
       
     <!-- End Middle Column -->
@@ -336,7 +285,7 @@ Cores: #a81f2f #560d16 #72141f-->
               <img src="<?php echo base_url('assets/img/users/'.$noticia->img_perfil) ?>" class="w3-image w3-circle" style="width: 30px;height: 30px;">
             </div>
             <div class="w3-cell w3-small w3-cell-middle" style="width: 80%">
-              <b><?php echo $noticia->nome?></b> realizou uma nova Solicitação da <?php echo $noticia->nome_regiao;  ?><br>
+              <b><?php echo $noticia->nome?></b> realizou uma nova solicitação de <?php echo $noticia->tipo_solicitacao;  ?><br>
             </div>
           </div>
           <?php endforeach ?>

@@ -138,7 +138,7 @@
                                                     <tr>
                                                         <td colspan="5">
                                                             <br>
-                                                            <button class="btn" type="submit" style="background-color: #72141f; color:#fff !important">Cancelar</button>
+                                                            <button onclick="verMais(<?=$qtd;?>)" class="btn" type="button" style="background-color: #72141f; color:#fff !important">Cancelar</button>
                                                             <button class="btn" type="submit" style="background-color: #72141f; color:#fff !important">Enviar</button>
                                                             <br><br><br><br>
                                                         </td>

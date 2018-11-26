@@ -19,9 +19,9 @@ class Solicitacao extends CI_Controller {
             $this->form_validation->set_rules('nome', 'Nome da Solicitação', 'required|min_length[4]|trim');
             $this->form_validation->set_rules('descricao', 'Descrição da Solicitação', 'required|min_length[4]|trim');
             $this->form_validation->set_rules('tipoSolicitacao', 'Tipo da Solicitação', 'required|trim');
-            //$this->form_validation->set_rules('dataViagem', 'Data da Viagem', 'required|trim');
-            //$this->form_validation->set_rules('origem', 'Local de origem', 'required|min_length[4]|trim');
-            //$this->form_validation->set_rules('destino', 'Local de destino', 'required|min_length[4]|trim');
+            $this->form_validation->set_rules('dataViagem', 'Data da Viagem', 'required');
+            $this->form_validation->set_rules('origem', 'Local de origem', 'required');
+            $this->form_validation->set_rules('destino', 'Local de destino', 'required');
             $this->form_validation->set_rules('acompanhantes', 'Número de Acompanhantes', 'required' );
 
             if ($this->form_validation->run() == FALSE) {
@@ -40,12 +40,12 @@ class Solicitacao extends CI_Controller {
                     'nome_solicitacao' => $dataRegister['nome'],
                     'descricao' => $dataRegister['descricao'],
                     'tipo_solicitacao' => $dataRegister['tipoSolicitacao'],
-                    //'data_viagem' => $dataRegister['dataViagem'],
-                    //'origem' => $dataRegister['origem'],
-                    //'destino' => $dataRegister['destino'],
+                    'data_viagem' => $dataRegister['dataViagem'],
+                    'origem' => $dataRegister['origem'],
+                    'destino' => $dataRegister['destino'],
                     'acompanhantes' => $dataRegister['acompanhantes'],
+                    'solicitante' => $this->session->userdata('id_usuario')
                 );
-
 
                 $res = $this->Crud_model->Insert('solicitacao', $dataModel);
 

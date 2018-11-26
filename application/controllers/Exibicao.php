@@ -139,9 +139,36 @@ class Exibicao extends CI_Controller {
 		$nome_user = explode(" ", $data['user']->nome);
 		$data['nome_user'] = $nome_user[0];
 
-		$data['noticias'] = [];
+		$sql = "SELECT su.nome, s.tipo_solicitacao, su.img_perfil
+            FROM solicitacao s 
+            INNER JOIN usuario su ON (su.id_usuario = s.solicitante)
+            ORDER BY s.data_solicitacao desc";
+
+		$data['noticias'] = $this->Crud_model->Query($sql);
+
+		$sql = "SELECT su.nome, s.tipo_solicitacao, su.img_perfil
+            FROM solicitacao s 
+            INNER JOIN usuario su ON (su.id_usuario = s.solicitante)
+            WHERE s.status = 0
+            ORDER BY s.data_solicitacao desc";
+		$data['notificacoes'] = $this->Crud_model->Query($sql);
+
+		$sql = "SELECT su.nome, s.tipo_solicitacao, DATE_FORMAT(s.data_viagem ,'%d %b %Y') as data_viagem
+            FROM solicitacao s 
+            INNER JOIN usuario su ON (su.id_usuario = s.solicitante)
+            WHERE s.status = 0
+            ORDER BY s.data_solicitacao desc";
+        $data['pendentes'] = $this->Crud_model->Query($sql);
+
+
+        $sql = "SELECT su.nome, s.tipo_solicitacao, DATE_FORMAT(s.data_viagem ,'%d %b %Y') as data_viagem
+            FROM solicitacao s 
+            INNER JOIN usuario su ON (su.id_usuario = s.solicitante)
+            WHERE s.status = 0 AND su.id_usuario = $id_user
+            ORDER BY s.data_solicitacao desc";
+        $data['solicitacoes'] = $this->Crud_model->Query($sql);
+
 		$this->load->view('adm/user/profile', $data);
-		
 		
 		else:
 			redirect(base_url('login'));

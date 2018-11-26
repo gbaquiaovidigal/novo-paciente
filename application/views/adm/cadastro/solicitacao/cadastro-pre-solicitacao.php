@@ -68,11 +68,11 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <label for=""><strong>Acompanhantes</strong></label>
-                                    <input class="form-control" type="number" value="<?=$dataRegister['acompanhantes']?>">
+                                    <input class="form-control" type="number" name="acompanhantes" value="<?=$dataRegister['acompanhantes']?>">
                                 </div>
                                 <div class="col-md-6">
                                     <label for=""><strong>Data Viagem</strong></label>
-                                    <input class="form-control" type="date" value="<?=$dataRegister['dataViagem']?>">
+                                    <input class="form-control" type="date" name="dataViagem" value="<?=$dataRegister['dataViagem']?>">
                                 </div>
                             </div>
                             <br>
