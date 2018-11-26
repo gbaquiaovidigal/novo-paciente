@@ -155,20 +155,20 @@ class Veiculo extends CI_Controller
                     /* Se ocorreu, os dados retorna para os campos, para o usuario nao precisar digitar tudo novamente no formulario*/
                     $result = true;
                     $data['dataRegister'] = $this->input->post();
-                    //$data['cidades'] = $this->Crud_model->ReadAll('cidade');
-                    //die(var_dump($data['dataRegister']));
                 }
 
                 // Se não existir erros na validação, então insere no banco de dados
             } else {
 
                 $dataRegister = $this->input->post();
+                
                 $par = array('id_veiculo' => $dataRegister['id_veiculo']);
                 $dataModel = array(
                     'ds_veiculo' => $dataRegister['veiculo'],
                     'placa' => $dataRegister['placa']);
 
                 $res = $this->Crud_model->Update('veiculo', $dataModel, $par);
+
                 if ($res) {
                     redirect(base_url('adm/veiculo?cod=1'));
                 } else {

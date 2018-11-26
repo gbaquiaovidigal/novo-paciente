@@ -24,6 +24,7 @@
 							<form method="POST" action="<?=base_url('adm/editar-veiculo')?>">
 
 								<label for="Veiculo"><h4><strong>Descrição do veículo</strong></h4></label>
+								<input type="hidden" name="id_veiculo" value="<?=$dataRegister['id_veiculo']?>"/>
 								<input type="text" class="form-control" name="veiculo" id="veiculo" required="" value="<?=$dataRegister['veiculo']?>" placeholder="Insira a descrição do Veículo"> 
 								</br>
 								<label for="Veiculo"><h4><strong>Placa do veículo</strong></h4></label>
