@@ -21,7 +21,8 @@
 										<a href="<?=base_url('profile#menu')?>" class="btn" style="background-color: #72141f; color:#fff !important"><i class="fa fa-chevron-left"></i> Voltar</a>
 									</div>
 									<div class="col-md-8">
-										<input type="text" class="form-control" alt="lista-veiculos" placeholder="Para buscar o veículo digite aqui o nome. Ex.. Uno" name="veiculo" value="<?=$dataForm?>" autofocus>
+										<!-- <input type="text" class="form-control" alt="lista-veiculos" placeholder="Para buscar o veículo digite aqui o nome. Ex.. Uno" 
+											name="veiculo" value="<?=$dataForm?>" autofocus> -->
 									</div>
 									<div class=" col-md-2 text-right">
 										<a href="<?=base_url('adm/cadastro-veiculo')?>" class="btn" style="background-color: #72141f; color:#fff !important">Novo Veículo <i class="fa fa-plus"></i></a>

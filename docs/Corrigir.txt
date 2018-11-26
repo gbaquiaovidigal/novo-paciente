@@ -1,0 +1,7 @@
+#Erros
+Menu some quando acessado celular;
+Carregar foto perfil;
+Editar veículo
+Usuário/editar : erro ao editar tipo de usuário
+
+Permissões usuário comum e adm (profile)

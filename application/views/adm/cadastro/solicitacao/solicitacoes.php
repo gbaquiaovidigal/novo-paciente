@@ -12,7 +12,7 @@
                             <div class="alert alert-success text-center" role="alert">Solicatação enviada com sucesso</div>
                             <hr>
                         <?php elseif ($this->input->get('cod') == 2): ?>
-                            <div class="alert alert-success text-center" role="alert">Veículo Removido com sucesso</div>
+                            <div class="alert alert-success text-center" role="alert">Solicitação Removida com sucesso</div>
                             <hr>
                         <?php endif; ?>
                         <form action="<?=base_url('adm/solicitacoes')?>" method="post">
