@@ -42,10 +42,14 @@ Cores: #a81f2f #560d16 #72141f-->
       <a href="<?=base_url('logout')?>" class="w3-bar-item w3-button">Sair</a>
     </div>
   </div>
+
+
   <div class="w3-dropdown-hover w3-hide-small">
+  <?php if ($permissao == 1): ?>
     <button class="w3-button w3-padding-large" title="Notifications"><i class="fa fa-bell"></i>
       <span class="w3-badge w3-right w3-small w3-white"><?=$notificacoes ? sizeof($notificacoes) : ""?></span>
     </button>
+    <?php endif; ?>
     <div class="w3-dropdown-content w3-card w3-bar-block">
         <?php
             if ($notificacoes) {
@@ -62,6 +66,7 @@ Cores: #a81f2f #560d16 #72141f-->
   
  </div>
 </div>
+
 
 <!-- Navbar on small screens -->
 <div id="navDemo" class="w3-bar-block w3-hide w3-hide-large w3-hide-medium w3-large" style="background-color: #560d16; color:#fff !important">
@@ -87,6 +92,7 @@ Cores: #a81f2f #560d16 #72141f-->
         </div>
       </div>
       <br>
+
       <?php if ($permissao == 1): ?>
       <div class="w3-margin-bottom">
         <div class="w3-col m12">
@@ -144,6 +150,46 @@ Cores: #a81f2f #560d16 #72141f-->
         </div>
       </div>
       <?php endif; ?>
+
+      <?php if ($permissao == 2): ?>
+      <div class="w3-margin-bottom">
+        <div class="w3-col m12">
+          <div class="w3-card w3-round w3-white">
+            <div class="w3-container w3-padding">
+              <h6 class="w3-opacity w3-center"><i class="fa fa-th"></i> Menu</h6>
+              <hr>
+              <div class="w3-row-padding w3-margin-bottom">
+                <ul class="w3-ul">
+                  <!--
+                  <a class="w3-bar" href="<?php echo base_url('adm/solicitacoes')?>">
+                    <li class="w3-cell-row w3-padding-12 w3-border-bottom ">
+                      <div class="w3-cell w3-cell-middle">
+                        Solicitações
+                      </div>
+                      <div class="w3-cell w3-cell-middle w3-margin-right w3-right">
+                        <i class="fa fa-chevron-right"></i>
+                      </div>
+                    </li>
+                  </a> -->
+                  <a class="w3-bar" href="<?php echo base_url('adm/cadastro-pre-solicitacao')?>">
+                    <li class="w3-cell-row w3-padding-12 w3-border-bottom ">
+                      <div class="w3-cell w3-cell-middle">
+                        Nova Solicitação
+                      </div>
+                      <div class="w3-cell w3-cell-middle w3-margin-right w3-right" >
+                        <i class="fa fa-chevron-right"></i>
+                      </div>
+                    </li>
+                  </a>
+                 
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <?php endif; ?>
+
     <!-- End Left Column -->
     </div>
     <!-- Middle Column -->

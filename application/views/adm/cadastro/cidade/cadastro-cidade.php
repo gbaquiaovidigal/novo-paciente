@@ -34,7 +34,7 @@
 								<?php endforeach ?>
 								</select>
 								
-								<!-- Data da Lista-->
+								<!-- -->
 								
 								<label for="cidade"><h4><strong>Nome da Cidade</strong></h4></label>
 								<input type="text" class="form-control" name="cidade" id="cidade" required="" value="<?=$dataRegister['cidade']?>" placeholder="Insira o nome da Cidade"> 

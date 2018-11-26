@@ -50,33 +50,18 @@ $route['adm/cadastro-veiculo'] = 'Veiculo/Register';
 $route['adm/editar-veiculo'] = 'Veiculo/Editar';
 $route['adm/remover-veiculo'] = 'Veiculo/Remover';
 
-$route['adm/presbiteros'] = 'Presbitero/Listar';
-$route['adm/cadastro-presbitero'] = 'Presbitero/Register';
-$route['adm/editar-presbitero'] = 'Presbitero/Editar';
-$route['adm/remover-presbitero'] = 'Presbitero/Remover';
-
-$route['adm/lista-inserir'] = 'ListaCulto/Register';
-$route['adm/lista-editar-servicos'] = 'ListaCulto/Editar';
-$route['adm/lista-remover-servicos'] = 'ListaCulto/Remover';
-
 #rotas api
 $route['adm/lc/buscar-veiculo'] = 'Api/ListarVeiculo';
-$route['adm/lc/buscar-cidade'] = 'Api/ListarCidade';
-$route['adm/lc/buscar-anciao'] = 'Api/ListarAnciao';
-$route['adm/lc/buscar-encarregado'] = 'Api/ListarEncarregado';
-$route['adm/lc/inserir-presbitero'] = 'Api/CadastroPresbitero';
+$route['adm/lc/buscar-cidade'] = 'Api/ListarCidade';;
 $route['adm/lc/inserir-veiculo'] = 'Api/CadastroVeiculo';
 $route['adm/lc/inserir-cidade'] = 'Api/CadastroCidade';
 $route['adm/lc/inserir-arquivo'] = 'Api/InserirPDF';
 
-#API do aplicatico appListaCCB
+#API 
 $route['app/regioes'] = 'ApiApp/ListarRegioes';
 $route['app/lista'] = 'ApiApp/Lista';
 $route['app/estados'] = 'ApiApp/ListarEstados';
 $route['app/cidades'] = 'ApiApp/ListarCidades';
-$route['app/lista-cidade'] = 'ApiApp/ListasPerCidade';
-$route['app/lista-culto'] = 'ApiApp/ListasPerCulto';
-$route['app/culto-detalhes'] = 'ApiApp/CultoDetalhe';
 $route['app/lista-id'] = 'ApiApp/ListarPerId';
 $route['app/email'] = 'ApiApp/EnviarEmail';
 $route['app/assinar'] = 'ApiApp/AssinarEmail';
