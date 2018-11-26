@@ -29,9 +29,11 @@
 									</div>
 								</div>
 								<br>
+								<!--
 								<div class="row text-center">
 									<button class="btn btn-lg" style="background-color: #72141f; color:#fff !important">Pesquisar</button>
 								</div>
+								-->
 							</form>
 							<br>
 							<table class="table table-responsive table-hover text-center">
