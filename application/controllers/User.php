@@ -244,7 +244,7 @@ public function Login()
 						if ($result) {
 						$data['dataRegister'] = array(
 							'nome' => $result->nome, 
-							'id_usuario' => $result->id_usuario,
+							'id_user' => $result->id_usuario,
 							'id_tipo_usuario' => $result->id_tipo_usuario);
 						}
 						//die(var_dump($data['dataRegister']));
@@ -261,10 +261,10 @@ public function Login()
 			}else{
 
 				$dataRegister = $this->input->post();
-				$par = array('id_usuario' => $dataRegister['id_usuario']);
+				$par = array('id_usuario' => $dataRegister['id_user']);
 				$dataModel = array(
 					'nome' => $dataRegister['nome'], 
-					'id_tipo_usuario' => $dataRegister['id_tu']);
+					'id_tipo_usuario' => $dataRegister['id_tipo_usuario']);
 				$res = $this->Crud_model->Update('usuario',$dataModel,$par);
 				//die(var_dump($res));
 				if ($res) {
@@ -287,6 +287,8 @@ public function Login()
 			if($result){
 				//Buscando os tipos de usuarios
 				$data['tipo_user'] = $this->Crud_model->ReadAll('tipo_usuario');
+				//die(var_dump($data['tipo_user']));
+
 				$this->load->view('adm/cadastro/usuario/editar-user',$data);
 	
 			}else{ // Se não tiver resultado na pesquisa, exibe mensagem de erro (Possivelmente mudou a url)
