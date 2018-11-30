@@ -54,7 +54,7 @@
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                     <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
                 </button>
-                <a class="navbar-brand page-scroll" href="http://localhost/novo-paciente" style="color: #560d16 !important"><i class="fa fa-ambulance w3-margin-right"></i>PACIENTE MÓVEL</a>
+                <a class="navbar-brand page-scroll" href="<?=base_url('profile')?>" style="color: #560d16 !important"><i class="fa fa-ambulance w3-margin-right"></i>PACIENTE MÓVEL</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
