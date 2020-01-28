@@ -1,2 +1,2 @@
 # Paciente Móvel
-App para realizar solicitaçõe de viagens médicas
+App para realizar solicitações de viagens médicas
