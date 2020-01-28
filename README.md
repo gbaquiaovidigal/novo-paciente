@@ -1,2 +1,2 @@
 # Paciente Móvel
-App para realizar solicitações de viagens médicas
+Aplicação de auxílio à solicitação de transporte para tratamento médico fora do domicílio de Jacuí.
